@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Developer & Tech Enthusiast</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        nav a {
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 100px 10%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero-intro {
+            color: #888;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            background-color: #6cb72c;
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #5a9924;
+        }
+
+        .hero-image {
+            flex: 0 0 300px;
+        }
+
+        .hero-image img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #2a2a2a;
+        }
+
+        .worked-with {
+            margin-top: 80px;
+        }
+
+        .worked-with h3 {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logos {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-item {
+            color: #444;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        section {
+            padding: 100px 10%;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        section h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #6cb72c;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background-color: #1a1a1a;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #6cb72c;
+        }
+
+        .skill-category h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .skill-category p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .project-card {
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card h3 {
+            color: #6cb72c;
+            margin-bottom: 15px;
+        }
+
+        .project-card p {
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .project-link {
+            color: #6cb72c;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .experience-item {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .experience-header h3 {
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .experience-date {
+            color: #6cb72c;
+            font-size: 14px;
+        }
+
+        .experience-item p {
+            color: #888;
+            line-height: 1.6;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .achievement-card {
+            background-color: #1a1a1a;
+            padding: 25px;
+            border-radius: 8px;
+            border-top: 3px solid #6cb72c;
+        }
+
+        .achievement-card h3 {
+            color: #6cb72c;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .achievement-card p {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .volunteer-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .volunteer-item {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            color: #888;
+            font-size: 14px;
+            border-left: 3px solid #6cb72c;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 10%;
+            background-color: #000;
+            color: #666;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #6cb72c;
+        }
+
+        /* New Styles for Added Elements */
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background-color: #2a2a2a;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .certificate-card {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .certificate-image {
+            width: 100%;
+            height: 180px;
+            background-color: #2a2a2a;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        .certificate-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .certificate-card h3 {
+            color: #6cb72c;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .certificate-card p {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .leadership-card {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .leadership-image {
+            width: 120px;
+            height: 120px;
+            background-color: #2a2a2a;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+            overflow: hidden;
+        }
+
+        .leadership-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .leadership-card h3 {
+            color: #6cb72c;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .leadership-card p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            background-color: #6cb72c;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #5a9924;
+        }
+
+        .notification {
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .notification.success {
+            background-color: #1a3c1a;
+            color: #6cb72c;
+            border: 1px solid #6cb72c;
+        }
+
+        .notification.error {
+            background-color: #3c1a1a;
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding: 80px 5%;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certificates">Certificates</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#leadership">Leadership</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="#contact">Get In Touch</a></li>
+            <!-- added GitHub link in top nav for quick access -->
+
+            <li><a href="https://www.linkedin.com/in/lerato-malatjie-ba253b20a" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Tech Innovator & Developer</h1>
+            <p class="hero-intro">
+                Detail-oriented Developer with hands-on experience in JavaScript, React.js, REST APIs, web/app development, and database-driven solutions. 
+                Skilled in building UI components, integrating software platforms, automating workflows, and supporting troubleshooting cycles. Proven ability to work in agile teams, contribute to sprint planning, and deliver maintainable code. Demonstrates strong problem-solving ability, fast learning, excellent communication, and a passion for developing solutions that address real business needs. Interested in contributing to projects involving React, Zoho apps, CRM automation, and cloud-based platforms.
+            </p>
+            <a href="#contact" class="cta-button">Let's get started ›</a>
+            
+            <div class="worked-with">
+                <h3>Worked with</h3>
+                <div class="logos">
+                    <div class="logo-item">Sinothando Child Welfare</div>
+                    <div class="logo-item">GuyzInTech</div>
+                    <div class="logo-item">Sol Plaatje University</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-image">
+            <img src="lerato.jpg" alt="Profile Picture">
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Programming & Development</h3>
+                <p>Python, Java, JavaScript, TypeScript, Bash, Node.js, React, Android Studio, REST APIs</p>
+            </div>
+            <div class="skill-category">
+                <h3>Cloud & DevOps</h3>
+                <p>Firebase, AWS/Azure concepts, CI/CD (GitHub Actions), Docker, system monitoring, automation</p>
+            </div>
+            <div class="skill-category">
+                <h3>Databases</h3>
+                <p>MySQL, SQL, MongoDB, data integration, stored procedures, database optimization</p>
+            </div>
+            <div class="skill-category">
+                <h3>Systems & Tools</h3>
+                <p>Linux (Ubuntu), Windows, MacOS, Git/GitHub, VS Code, command-line tools, log analysis</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education (inserted after Skills) -->
+    <section id="education">
+        <h2>Education</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Diploma in ICT: Applications Development</h3>
+                <p><strong>Sol Plaatje University</strong> — Feb 2023 &ndash; Nov 2025</p>
+                <ul style="color:#888; margin-top:12px; line-height:1.6;">
+                    <li>Relevant Modules: Software Engineering</li>
+                    <li>Data Analysis &amp; Visualization</li>
+                    <li>Web &amp; App Development</li>
+                    <li>Operating Systems and Server Management</li>
+                    <li>Project Management</li>
+                    <li>Programming</li>
+                </ul>
+            </div>
+
+            <div class="skill-category">
+                <h3>National Senior Certificate</h3>
+                <p><strong>Rutasetjhaba Secondary School</strong> — 2017 &ndash; 2021</p>
+                <ul style="color:#888; margin-top:12px; line-height:1.6;">
+                    <li>Key Subjects: Mathematics</li>
+                    <li>Computer Applications Technology (CAT)</li>
+                    <li>Physical Science</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Featured Projects</h2>
+
+        <div class="leadership-grid">
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="qhawelami.png" alt="QhaweLami Project Preview">
+                </div>
+                <h3>QhaweLami: My Hero</h3>
+                <p>AI-powered gamified web app addressing GBVF issues. Integrated Gemini AI model with interactive features to raise awareness and provide resources.</p>
+                <p><strong>Tech:</strong> HTML/CSS, Android Studio, Java, AI Gemini, Node.js, JavaScript, Firebase, SMS API</p>
+                <a href="https://qhawegbv.netlify.app/" class="project-link" target="_blank">View Project →</a>
+            </div>
+
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="terra.jpg" alt="TerraBloom Project Preview">
+                </div>
+                <h3>TerraBloom IoT Project</h3>
+                <p>Mock IoT-connected Android app for farmers to track weather and market data. Built comprehensive UI with API integration and Firebase backend.</p>
+                <p><strong>Tech:</strong> Android Studio, Java, JavaScript, Firebase, REST APIs</p>
+            </div>
+
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="sql.jpg" alt="Student Support Database">
+                </div>
+                <h3>Student Support Database</h3>
+                <p>Developed MySQL database to manage student information, support requests, and attendance. Implemented stored procedures, views, and automated tasks for data integrity.</p>
+                <p><strong>Tech:</strong> MySQL, SQL, Python, VS Code</p>
+            </div>
+
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="sinothando.jpg" alt="Sinothando Child Welfare Website">
+                </div>
+                <h3>Sinothando Child Welfare Website</h3>
+                <p>Developed and maintained user-friendly website to support community initiatives and enhance organizational outreach.</p>
+                <a href="https://sinothandowelfare.netlify.app/" class="project-link" target="_blank">View Project →</a>
+            </div>
+
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="guyz.png" alt="GuyzInTech Website">
+                </div>
+                <h3>GuyzInTech Website</h3>
+                <p>Created web solutions to enhance online presence and functionality for a tech startup.</p>
+                <a href="https://guyzintech.netlify.app/" class="project-link" target="_blank">View Project →</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificates">
+        <h2>Certifications</h2>
+        <div class="certificates-grid">
+            <div class="certificate-card">
+                <div class="project-image">
+                    <img src="it.png" alt="TerraBloom Project Preview">
+                </div>
+                <h3>IT for Business Success</h3>
+                <p>HP Life | August 2025</p>
+            </div>
+            <div class="certificate-card">
+                <div class="project-image">
+                    <img src="effective.png" alt="TerraBloom Project Preview">
+                </div>
+                <h3>Effective Business Websites</h3>
+                <p>HP Life | August 2025</p>
+            </div>
+            <div class="certificate-card">
+                <div class="project-image">
+                    <img src="social.png" alt="TerraBloom Project Preview">
+                </div>
+                <h3>Social Media Marketing</h3>
+                <p>HP Life | August 2025</p>
+            </div>
+            <div class="certificate-card">
+                <div class="project-image">
+                    <img src="etiq.jpg" alt="TerraBloom Project Preview">
+                </div>
+                <h3>Professional Presence & Workplace Etiquette</h3>
+                <p>School of Etiquette | June 2025</p>
+            </div>
+            <div class="certificate-card">
+                <div class="project-image">
+                    <img src="web.png" alt="TerraBloom Project Preview">
+                </div>
+                <h3>Responsive Web Development</h3>
+                <p>freeCodeCamp | November 2024</p>
+            </div>
+            <div class="certificate-card">
+                <div class="project-image">
+                    <img src="cyber.png" alt="TerraBloom Project Preview">
+                </div>
+                <h3>Cybersecurity Awareness</h3>
+                <p>HP Life | September 2024</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2>Work Experience</h2>
+        
+        <div class="experience-item">
+            <div class="experience-header">
+                <h3>Web Developer | Sinothando Child Welfare</h3>
+                <span class="experience-date">July 2025</span>
+            </div>
+            <p>Developed and maintained a user-friendly website to support the organisation's community initiatives.</p>
+        </div>
+
+        <div class="experience-item">
+            <div class="experience-header">
+                <h3>Web Developer | GuyzInTech</h3>
+                <span class="experience-date">May 2025</span>
+            </div>
+            <p>Created web solutions to enhance online presence and functionality for a tech startup.</p>
+        </div>
+
+        <div class="experience-item">
+            <div class="experience-header">
+                <h3>Coding & Robotics Tutor | Vooruitsig Primary School</h3>
+                <span class="experience-date">May 2025</span>
+            </div>
+            <p>Introduced Grade 6 learners to basic coding and robotics using Scratch. Designed hands-on exercises, instructional materials, and videos to develop logical thinking and problem-solving skills.</p>
+        </div>
+    </section>
+
+    <section id="leadership">
+        <h2>Leadership Experience</h2>
+        <div class="leadership-grid">
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="peer.jpg" alt="Fisa">
+                </div>
+                <h3>Peer Mentor</h3>
+                <p>Sol Plaatje University | 2024 - 2025</p>
+                <p>Provided academic and personal support for first year students, facilitated guidance sessions, workshops, and check-ins.</p>
+            </div>
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="career.jpg" alt="Fisa">
+                </div>
+                <h3>Career Services Ambassador</h3>
+                <p>Sol Plaatje University | Apr - Nov 2024</p>
+                <p>Supported students in career planning, CV development and organised workshops and events to connect students with industry opportunities.</p>
+            </div>
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="git.jpg" alt="Fisa">
+                </div>
+                <h3>GitHub Constellation Hackathon Mentor</h3>
+                <p>Geekulcha | Nov 2024</p>
+                <p>Guided participants in coding projects and problem-solving strategies and shared technical insights to help teams successfully complete their hackathon challenges.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <h2>Achievements & Recognition</h2>
+        
+        <div class="achievements-grid">
+            <div class="achievement-card">
+                <h3>🥉 SheLeads EmpowerHerAI Hackathon</h3>
+                <p>3rd Place - August 2025</p>
+            </div>
+            <div class="achievement-card">
+                <div class="project-image" style="height:140px;">
+                    <img src="geekulcha.jpg" alt="Telkom Future Makers">
+                </div>
+                <h3>🥇 Geekulcha Annual Hackathon</h3>
+                <p>1st Place - October 2024</p>
+            </div>
+            <div class="achievement-card">
+                <div class="project-image" style="height:140px;">
+                    <img src="telkom.jpg" alt="Telkom Future Makers">
+                </div>
+                <h3>🥇 Telkom Learn Hackathon</h3>
+                <p>1st Place - September 2024</p>
+            </div>
+            <div class="achievement-card">
+                <!-- added future.png image for Telkom Future Makers -->
+                <div class="project-image" style="height:140px;">
+                    <img src="future.png" alt="Telkom Future Makers">
+                </div>
+                <h3> Telkom Future Makers</h3>
+                <p>Selected participant - Programme for emerging tech leaders</p>
+            </div>
+            <div class="achievement-card">
+                <div class="project-image" style="height:140px;">
+                    <img src="leadership.jpg" alt="Telkom Future Makers">
+                </div>
+                <h3> Leadership Programmes</h3>
+                <p>Kopano ya Dinaledi Delegate, Student Leadership Workshop Speaker</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="volunteer">
+        <h2>Volunteer Experience</h2>
+        <div class="volunteer-list">
+            <div class="volunteer-item">June 2025 – SPU 100 Days of Fighting GBVF Challenge</div>
+            <div class="volunteer-item">June 2025 – SPU Nurturing Young Minds Event</div>
+            <div class="volunteer-item">25–26 April 2025 – SPU 10th Graduation Ceremony</div>
+            <div class="volunteer-item">April 2025 – SPU Human Rights Day Dialogue</div>
+            <div class="volunteer-item">April 2025 – SPU The Big Walk</div>
+            <div class="volunteer-item">Feb 2025 – SPU Vice Chancellor's Welcoming Event</div>
+            <div class="volunteer-item">Feb 2025 – SPU Amazing Race Marshal</div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <p style="color: #888; max-width: 600px; line-height: 1.6;">
+            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. 
+            Feel free to reach out through any of the platforms below or use the contact form.
+        </p>
+        
+        <!-- converted to a real form that opens a prefilled mailto to leratomalatji0614@gmail.com -->
+        <form id="contact-form" class="contact-form" novalidate>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="submit-button" id="submit-btn">Send Message</button>
+            <div id="notification" class="notification" role="status" aria-live="polite"></div>
+        </form>
+        
+        <div class="social-links" style="margin-top:18px;">
+
+            <a href="https://www.linkedin.com/in/lerato-malatjie-ba253b20a" target="_blank" style="margin-left:18px;">LinkedIn</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Portfolio. Built with passion and code.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (!targetSection) return;
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Contact form functionality: open prefilled mailto to leratomalatji0614@gmail.com
+        (function () {
+            const form = document.getElementById('contact-form');
+            const notification = document.getElementById('notification');
+            const toEmail = 'leratomalatji0614@gmail.com';
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                notification.style.display = 'none';
+                notification.className = 'notification';
+
+                const name = document.getElementById('name').value.trim();
+                const from = document.getElementById('email').value.trim();
+                const subject = document.getElementById('subject').value.trim();
+                const message = document.getElementById('message').value.trim();
+
+                // Basic validation
+                if (!name || !from || !subject || !message) {
+                    notification.textContent = 'Please fill in all fields.';
+                    notification.classList.add('error');
+                    notification.style.display = 'block';
+                    return;
+                }
+
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(from)) {
+                    notification.textContent = 'Please enter a valid email address.';
+                    notification.classList.add('error');
+                    notification.style.display = 'block';
+                    return;
+                }
+
+                // Construct mailto link (opens user's default mail client)
+                const mailSubject = encodeURIComponent(subject);
+                const bodyLines = [
+                    'Name: ' + name,
+                    'From: ' + from,
+                    '',
+                    'Message:',
+                    message
+                ];
+                const mailBody = encodeURIComponent(bodyLines.join('\n\n'));
+
+                const mailto = `mailto:${toEmail}?subject=${mailSubject}&body=${mailBody}`;
+
+                // Try opening mailto link
+                window.location.href = mailto;
+
+                // Show success notification (in case mail client opens, user still has feedback)
+                notification.textContent = 'Your mail client should open with a pre-filled message. If it did not, you can email directly to ' + toEmail;
+                notification.classList.add('success');
+                notification.style.display = 'block';
+
+                // Reset form
+                form.reset();
+
+                // Hide message after 6s
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 6000);
+            });
+        })();
+
+        // Add animation to project, certificate, leadership cards on scroll (existing)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply animation to project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+
+        // Apply animation to certificate cards
+        document.querySelectorAll('.certificate-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+
+        // Apply animation to leadership cards
+        document.querySelectorAll('.leadership-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
