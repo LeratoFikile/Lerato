@@ -463,6 +463,110 @@
             border: 1px solid #ff6b6b;
         }
 
+        /* New styles for interactive skill cards */
+        .skills-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background-color: #151515;
+            border-radius: 10px;
+            padding: 16px;
+            border-left: 4px solid #6cb72c;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.75);
+        }
+
+        .skill-header {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+        }
+
+        .skill-toggle {
+            display:flex;
+            align-items:center;
+            gap:10px;
+            width:100%;
+            background:transparent;
+            border:none;
+            color:#fff;
+            text-align:left;
+            padding:0;
+            cursor:pointer;
+            font-size:18px;
+            font-weight:700;
+        }
+
+        .skill-toggle .chev {
+            transition: transform 0.3s ease;
+            color:#9ae6a0;
+            font-size:18px;
+        }
+
+        .skill-card.open .skill-toggle .chev {
+            transform: rotate(180deg);
+        }
+
+        .skill-meta {
+            color:#9aa;
+            font-size:13px;
+        }
+
+        .skill-list {
+            overflow:hidden;
+            max-height:0;
+            transition: max-height 0.45s cubic-bezier(.2,.9,.2,1), opacity 0.35s;
+            opacity:0;
+            margin-top:12px;
+        }
+
+        .skill-card.open .skill-list {
+            opacity:1;
+            max-height:440px; /* enough to show lists */
+        }
+
+        .skill-list ul {
+            margin:0;
+            padding-left:18px;
+            color:#bdbdbd;
+            line-height:1.6;
+        }
+
+        .skill-badge {
+            display:inline-block;
+            margin:6px 6px 0 0;
+            padding:6px 10px;
+            background:#202020;
+            border-radius:999px;
+            color:#cfeccf;
+            font-size:13px;
+            border:1px solid rgba(108,183,44,0.08);
+        }
+
+        /* a brief fun pulse when opened */
+        .skill-card.spark {
+            animation: pulse 650ms ease;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(108,183,44,0.12); }
+            70% { box-shadow: 0 0 0 12px rgba(108,183,44,0); }
+            100% { box-shadow: 0 0 0 0 rgba(108,183,44,0); }
+        }
+
+        /* keep responsive */
+        @media (max-width:520px){
+            .skill-toggle { font-size:16px; }
+        }
+
         @media (max-width: 768px) {
             .hero {
                 flex-direction: column-reverse;
@@ -536,65 +640,150 @@
 
     <section id="skills">
         <h2>TECHNICAL SKILLS</h2>
-        <div class="skills-grid">
-            <div class="skill-category">
-                <h3>Programming &amp; Tools</h3>
-                <ul style="color:#888; margin-top:12px; line-height:1.6;">
-                    <li>JavaScript</li>
-                    <li>React.js</li>
-                    <li>TypeScript</li>
-                    <li>Python</li>
-                    <li>Java</li>
-                    <li>C#</li>
-                    <li>Node.js</li>
-                </ul>
+
+        <!-- interactive skill cards -->
+        <div class="skills-cards" aria-live="polite">
+            <!-- Programming & Tools -->
+            <div class="skill-card" data-key="programming">
+                <div class="skill-header">
+                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-programming">
+                        <span>💻 Programming &amp; Tools</span>
+                        <span class="chev">▾</span>
+                    </button>
+                </div>
+                <div id="skills-programming" class="skill-list" >
+                    <p class="skill-meta">Languages, frameworks and runtimes</p>
+                    <ul>
+                        <li><span class="skill-badge">JavaScript</span> <span class="skill-badge">React.js</span> <span class="skill-badge">TypeScript</span></li>
+                        <li><span class="skill-badge">Python</span> <span class="skill-badge">Java</span> <span class="skill-badge">C#</span></li>
+                        <li><span class="skill-badge">Bash</span> <span class="skill-badge">Node.js</span></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="skill-category">
-                <h3>Web &amp; Mobile Development</h3>
-                <ul style="color:#888; margin-top:12px; line-height:1.6;">
-                    <li>REST APIs</li>
-                    <li>React (web &amp; mobile)</li>
-                    <li>Android Studio</li>
-                    <li>Firebase</li>
-                </ul>
+            <!-- Web & Mobile Development -->
+            <div class="skill-card" data-key="webmobile">
+                <div class="skill-header">
+                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-webmobile">
+                        <span>🌐 Web &amp; Mobile Development</span>
+                        <span class="chev">▾</span>
+                    </button>
+                </div>
+                <div id="skills-webmobile" class="skill-list" >
+                    <p class="skill-meta">APIs, frameworks and platforms</p>
+                    <ul>
+                        <li><span class="skill-badge">REST APIs</span> <span class="skill-badge">React (web &amp; mobile)</span></li>
+                        <li><span class="skill-badge">Android Studio</span> <span class="skill-badge">Firebase</span></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="skill-category">
-                <h3>Database Management</h3>
-                <ul style="color:#888; margin-top:12px; line-height:1.6;">
-                    <li>MySQL</li>
-                    <li>SQL</li>
-                    <li>MongoDB</li>
-                </ul>
+            <!-- Web Development & CMS (new) -->
+            <div class="skill-card" data-key="webcms">
+                <div class="skill-header">
+                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-webcms">
+                        <span>🛠️ Web Development &amp; CMS</span>
+                        <span class="chev">▾</span>
+                    </button>
+                </div>
+                <div id="skills-webcms" class="skill-list" >
+                    <p class="skill-meta">HTML, CMS, testing and quality</p>
+                    <ul>
+                        <li><span class="skill-badge">WordPress</span> <small style="color:#9aa">theme customization • plugin management • core updates</small></li>
+                        <li><span class="skill-badge">HTML5</span> <span class="skill-badge">CSS3</span> <span class="skill-badge">JavaScript</span></li>
+                        <li><span class="skill-badge">Responsive Design</span> <span class="skill-badge">Cross-Browser QA</span></li>
+                        <li><span class="skill-badge">Website QA &amp; Testing</span> <span class="skill-badge">Git/GitHub</span></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="skill-category">
-                <h3>Software &amp; Cloud Platforms</h3>
-                <ul style="color:#888; margin-top:12px; line-height:1.6;">
-                    <li>Zoho apps (CRM, Creator, Books, Desk — interest)</li>
-                    <li>AWS / Azure basics</li>
-                    <li>CI/CD (GitHub Actions)</li>
-                    <li>Docker</li>
-                </ul>
+            <!-- Database Management -->
+            <div class="skill-card" data-key="database">
+                <div class="skill-header">
+                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-database">
+                        <span>🗄️ Database Management</span>
+                        <span class="chev">▾</span>
+                    </button>
+                </div>
+                <div id="skills-database" class="skill-list" >
+                    <p class="skill-meta">Storage, queries and integration</p>
+                    <ul>
+                        <li><span class="skill-badge">MySQL</span> <span class="skill-badge">SQL</span> <span class="skill-badge">MongoDB</span></li>
+                        <li><span class="skill-badge">Data integration</span> <span class="skill-badge">Stored procedures</span></li>
+                        <li><span class="skill-badge">Queries</span> <span class="skill-badge">Triggers</span></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="skill-category">
-                <h3>Version Control &amp; Agile Practices</h3>
-                <ul style="color:#888; margin-top:12px; line-height:1.6;">
-                    <li>Git</li>
-                    <li>GitHub</li>
-                </ul>
+            <!-- Software & Cloud Platforms -->
+            <div class="skill-card" data-key="cloud">
+                <div class="skill-header">
+                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-cloud">
+                        <span>☁️ Software &amp; Cloud Platforms</span>
+                        <span class="chev">▾</span>
+                    </button>
+                </div>
+                <div id="skills-cloud" class="skill-list" >
+                    <p class="skill-meta">Platforms and automation</p>
+                    <ul>
+                        <li><span class="skill-badge">Zoho apps</span> <small style="color:#9aa">CRM • Creator • Books • Desk</small></li>
+                        <li><span class="skill-badge">AWS / Azure (basics)</span></li>
+                        <li><span class="skill-badge">CI/CD (GitHub Actions)</span> <span class="skill-badge">Docker</span></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="skill-category">
-                <h3>Soft Skills &amp; Project Management</h3>
-                <ul style="color:#888; margin-top:12px; line-height:1.6;">
-                    <li>Communication</li>
-                    <li>Teamwork &amp; adaptability</li>
-                    <li>Problem-solving &amp; initiative</li>
-                    <li>Rapid learning &amp; creativity</li>
-                </ul>
+            <!-- Version Control & Agile -->
+            <div class="skill-card" data-key="version">
+                <div class="skill-header">
+                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-version">
+                        <span>🔁 Version Control &amp; Agile</span>
+                        <span class="chev">▾</span>
+                    </button>
+                </div>
+                <div id="skills-version" class="skill-list" >
+                    <p class="skill-meta">Collaboration & delivery</p>
+                    <ul>
+                        <li><span class="skill-badge">Git</span> <span class="skill-badge">GitHub</span> <span class="skill-badge">Bitbucket</span></li>
+                        <li><span class="skill-badge">Sprint planning exposure</span> <span class="skill-badge">Ticketing systems</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Data Analysis & Visualization -->
+            <div class="skill-card" data-key="data">
+                <div class="skill-header">
+                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-data">
+                        <span>📊 Data Analysis &amp; Visualization</span>
+                        <span class="chev">▾</span>
+                    </button>
+                </div>
+                <div id="skills-data" class="skill-list" >
+                    <p class="skill-meta">Data handling & reporting</p>
+                    <ul>
+                        <li><span class="skill-badge">Python</span> <span class="skill-badge">Data cleaning</span></li>
+                        <li><span class="skill-badge">Reporting</span> <span class="skill-badge">Visualization</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Leadership & Soft Skills -->
+            <div class="skill-card" data-key="soft">
+                <div class="skill-header">
+                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-soft">
+                        <span>🌟 Leadership &amp; Soft Skills</span>
+                        <span class="chev">▾</span>
+                    </button>
+                </div>
+                <div id="skills-soft" class="skill-list" >
+                    <p class="skill-meta">People &amp; project skills</p>
+                    <ul>
+                        <li><span class="skill-badge">Peer mentoring</span> <span class="skill-badge">Hackathon guidance</span></li>
+                        <li><span class="skill-badge">Communication</span> <span class="skill-badge">Teamwork</span></li>
+                        <li><span class="skill-badge">Problem-solving</span> <span class="skill-badge">Rapid learning</span></li>
+                        <li><span class="skill-badge">Innovation &amp; IoT mock-ups</span></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
@@ -996,6 +1185,60 @@
             card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             observer.observe(card);
         });
+
+        // Interactive skill dropdowns (fun and accessible)
+        (function () {
+            const toggles = document.querySelectorAll('.skill-toggle');
+
+            function closeOtherCards(currentCard) {
+                document.querySelectorAll('.skill-card.open').forEach(card => {
+                    if (card !== currentCard) {
+                        card.classList.remove('open', 'spark');
+                        const btn = card.querySelector('.skill-toggle');
+                        if (btn) btn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
+            toggles.forEach(btn => {
+                const card = btn.closest('.skill-card');
+                const targetId = btn.getAttribute('aria-controls');
+                const panel = document.getElementById(targetId);
+
+                // keyboard support
+                btn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        btn.click();
+                    }
+                });
+
+                btn.addEventListener('click', () => {
+                    const isOpen = card.classList.toggle('open');
+                    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+                    // add a tiny spark animation when opening
+                    if (isOpen) {
+                        card.classList.add('spark');
+                        setTimeout(() => card.classList.remove('spark'), 700);
+                    }
+
+                    // close other cards for neatness (toggle off if clicked again)
+                    if (isOpen) closeOtherCards(card);
+                });
+
+                // small accessibility: set role and aria-controls on the panel
+                if (panel) {
+                    panel.setAttribute('role', 'region');
+                    panel.setAttribute('aria-hidden', 'true');
+                    // observe open/close to update aria-hidden
+                    const observer = new MutationObserver(() => {
+                        panel.setAttribute('aria-hidden', card.classList.contains('open') ? 'false' : 'true');
+                    });
+                    observer.observe(card, { attributes: true, attributeFilter: ['class'] });
+                }
+            });
+        })();
     </script>
 </body>
 </html>
