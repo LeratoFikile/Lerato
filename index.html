@@ -18,13 +18,15 @@
         }
 
         nav {
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
             padding: 20px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid #1a1a1a;
+            border-bottom: 1px solid rgba(108, 183, 44, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         nav ul {
@@ -38,11 +40,27 @@
             color: #888;
             text-decoration: none;
             font-size: 14px;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #6cb72c;
+            transition: width 0.3s ease;
         }
 
         nav a:hover {
             color: #fff;
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         .hero {
@@ -51,12 +69,26 @@
             align-items: center;
             justify-content: space-between;
             padding: 100px 10%;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0d0d0d 100%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(108, 183, 44, 0.05) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .hero-content {
             flex: 1;
             max-width: 500px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
@@ -77,14 +109,37 @@
             color: white;
             padding: 15px 35px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
             display: inline-block;
             font-weight: 600;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 183, 44, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
 
         .cta-button:hover {
-            background-color: #5a9924;
+            background-color: #7dc63e;
+            box-shadow: 0 8px 25px rgba(108, 183, 44, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .hero-image {
@@ -126,13 +181,25 @@
 
         section {
             padding: 100px 10%;
-            border-bottom: 1px solid #1a1a1a;
+            border-bottom: 1px solid rgba(108, 183, 44, 0.1);
+            position: relative;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(108, 183, 44, 0.3), transparent);
         }
 
         section h2 {
             font-size: 36px;
             margin-bottom: 40px;
             color: #6cb72c;
+            text-shadow: 0 2px 10px rgba(108, 183, 44, 0.1);
         }
 
         .skills-grid {
@@ -358,43 +425,36 @@
         }
 
         .leadership-card {
-            background-color: #1a1a1a;
-            padding: 20px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #151515 0%, #1a1a1a 100%);
+            padding: 24px;
+            border-radius: 12px;
             text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(108, 183, 44, 0.1);
+            position: relative;
         }
 
-        .leadership-image {
-            width: 120px;
-            height: 120px;
-            background-color: #2a2a2a;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 12px;
-            overflow: hidden;
+        .leadership-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #6cb72c, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        .leadership-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
+        .leadership-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(108, 183, 44, 0.2);
+            border-color: rgba(108, 183, 44, 0.3);
         }
 
-        .leadership-card h3 {
-            color: #6cb72c;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .leadership-card p {
-            color: #888;
-            font-size: 14px;
-            line-height: 1.6;
+        .leadership-card:hover::after {
+            opacity: 1;
         }
 
         .contact-form {
@@ -471,95 +531,36 @@
         }
 
         .skill-card {
-            background-color: #151515;
-            border-radius: 10px;
-            padding: 16px;
+            background: linear-gradient(135deg, #151515 0%, #1a1a1a 100%);
+            border-radius: 12px;
+            padding: 20px;
             border-left: 4px solid #6cb72c;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(108, 183, 44, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .skill-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.75);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(108, 183, 44, 0.15);
+            border-left-color: #9ae6a0;
         }
 
-        .skill-header {
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap:12px;
-        }
-
-        .skill-toggle {
-            display:flex;
-            align-items:center;
-            gap:10px;
-            width:100%;
-            background:transparent;
-            border:none;
-            color:#fff;
-            text-align:left;
-            padding:0;
-            cursor:pointer;
-            font-size:18px;
-            font-weight:700;
-        }
-
-        .skill-toggle .chev {
-            transition: transform 0.3s ease;
-            color:#9ae6a0;
-            font-size:18px;
-        }
-
-        .skill-card.open .skill-toggle .chev {
-            transform: rotate(180deg);
-        }
-
-        .skill-meta {
-            color:#9aa;
-            font-size:13px;
-        }
-
-        .skill-list {
-            overflow:hidden;
-            max-height:0;
-            transition: max-height 0.45s cubic-bezier(.2,.9,.2,1), opacity 0.35s;
-            opacity:0;
-            margin-top:12px;
-        }
-
-        .skill-card.open .skill-list {
-            opacity:1;
-            max-height:440px; /* enough to show lists */
-        }
-
-        .skill-list ul {
-            margin:0;
-            padding-left:18px;
-            color:#bdbdbd;
-            line-height:1.6;
-        }
-
-        .skill-badge {
-            display:inline-block;
-            margin:6px 6px 0 0;
-            padding:6px 10px;
-            background:#202020;
-            border-radius:999px;
-            color:#cfeccf;
-            font-size:13px;
-            border:1px solid rgba(108,183,44,0.08);
-        }
-
-        /* a brief fun pulse when opened */
-        .skill-card.spark {
-            animation: pulse 650ms ease;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(108,183,44,0.12); }
-            70% { box-shadow: 0 0 0 12px rgba(108,183,44,0); }
-            100% { box-shadow: 0 0 0 0 rgba(108,183,44,0); }
+        .skill-card:hover::before {
+            opacity: 1;
         }
 
         /* keep responsive */
@@ -591,6 +592,192 @@
                 padding: 60px 5%;
             }
         }
+
+        /* Modal styles for project details */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #151515 0%, #1a1a1a 100%);
+            margin: 40px auto;
+            padding: 40px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 900px;
+            border: 1px solid rgba(108, 183, 44, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(108, 183, 44, 0.3);
+            padding-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #6cb72c;
+            font-size: 28px;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            color: #bdbdbd;
+            line-height: 1.8;
+        }
+
+        .modal-section {
+            margin-bottom: 30px;
+        }
+
+        .modal-section h3 {
+            color: #9ae6a0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .modal-section p {
+            color: #bdbdbd;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .video-container {
+            margin: 20px 0;
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 1;
+            background-color: #2a2a2a;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #202020 0%, #252525 100%);
+            color: #9ae6a0;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            border: 1px solid rgba(108, 183, 44, 0.2);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .tech-badge:hover {
+            background: linear-gradient(135deg, #252525 0%, #2a2a2a 100%);
+            border-color: rgba(108, 183, 44, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(108, 183, 44, 0.15);
+        }
+
+        .read-more-btn {
+            display: inline-block;
+            margin-top: 15px;
+            background-color: #6cb72c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .read-more-btn:hover {
+            background-color: #5a9924;
+        }
+
+        /* Skills modal sits above other modals */
+        #skills-modal.modal { z-index: 2500; }
+
+        /* Small tweaks for skills modal list inside */
+        #skills-modal .skills-list { display: grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        #skills-modal .skills-list ul { color: #bdbdbd; line-height:1.6; margin:0; padding-left:18px; }
+        #skills-modal .skills-category { background:#121212; padding:18px; border-radius:8px; border:1px solid rgba(108,183,44,0.06); }
     </style>
 </head>
 <body>
@@ -641,150 +828,32 @@
     <section id="skills">
         <h2>TECHNICAL SKILLS</h2>
 
-        <!-- interactive skill cards -->
-        <div class="skills-cards" aria-live="polite">
-            <!-- Programming & Tools -->
-            <div class="skill-card" data-key="programming">
-                <div class="skill-header">
-                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-programming">
-                        <span>💻 Programming &amp; Tools</span>
-                        <span class="chev">▾</span>
-                    </button>
-                </div>
-                <div id="skills-programming" class="skill-list" >
-                    <p class="skill-meta">Languages, frameworks and runtimes</p>
-                    <ul>
-                        <li><span class="skill-badge">JavaScript</span> <span class="skill-badge">React.js</span> <span class="skill-badge">TypeScript</span></li>
-                        <li><span class="skill-badge">Python</span> <span class="skill-badge">Java</span> <span class="skill-badge">C#</span></li>
-                        <li><span class="skill-badge">Bash</span> <span class="skill-badge">Node.js</span></li>
-                    </ul>
-                </div>
-            </div>
+        <p style="color:#bdbdbd; max-width:820px; margin-bottom:18px;">
+            Brief overview of capabilities — click "View all skills" to see the full categorized list.
+        </p>
 
-            <!-- Web & Mobile Development -->
-            <div class="skill-card" data-key="webmobile">
-                <div class="skill-header">
-                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-webmobile">
-                        <span>🌐 Web &amp; Mobile Development</span>
-                        <span class="chev">▾</span>
-                    </button>
-                </div>
-                <div id="skills-webmobile" class="skill-list" >
-                    <p class="skill-meta">APIs, frameworks and platforms</p>
-                    <ul>
-                        <li><span class="skill-badge">REST APIs</span> <span class="skill-badge">React (web &amp; mobile)</span></li>
-                        <li><span class="skill-badge">Android Studio</span> <span class="skill-badge">Firebase</span></li>
-                    </ul>
-                </div>
+        <div class="skills-summary" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-bottom:20px;">
+            <div style="background:#151515; padding:16px; border-radius:8px; border-left:4px solid #6cb72c;">
+                <h3 style="color:#9ae6a0; margin-bottom:8px; font-size:16px;">Frontend</h3>
+                <p style="color:#bdbdbd; font-size:14px; line-height:1.5;">HTML5, CSS3, JavaScript, React</p>
             </div>
+            <div style="background:#151515; padding:16px; border-radius:8px; border-left:4px solid #6cb72c;">
+                <h3 style="color:#9ae6a0; margin-bottom:8px; font-size:16px;">Mobile</h3>
+                <p style="color:#bdbdbd; font-size:14px; line-height:1.5;">Android (Java), Responsive UI</p>
+            </div>
+            <div style="background:#151515; padding:16px; border-radius:8px; border-left:4px solid #6cb72c;">
+                <h3 style="color:#9ae6a0; margin-bottom:8px; font-size:16px;">Backend / DB</h3>
+                <p style="color:#bdbdbd; font-size:14px; line-height:1.5;">Node.js, Python, MySQL, Firebase</p>
+            </div>
+            <div style="background:#151515; padding:16px; border-radius:8px; border-left:4px solid #6cb72c;">
+                <h3 style="color:#9ae6a0; margin-bottom:8px; font-size:16px;">Cloud & Tools</h3>
+                <p style="color:#bdbdbd; font-size:14px; line-height:1.5;">Firebase, Git, REST APIs, OAuth</p>
+            </div>
+        </div>
 
-            <!-- Web Development & CMS (new) -->
-            <div class="skill-card" data-key="webcms">
-                <div class="skill-header">
-                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-webcms">
-                        <span>🛠️ Web Development &amp; CMS</span>
-                        <span class="chev">▾</span>
-                    </button>
-                </div>
-                <div id="skills-webcms" class="skill-list" >
-                    <p class="skill-meta">HTML, CMS, testing and quality</p>
-                    <ul>
-                        <li><span class="skill-badge">WordPress</span> <small style="color:#9aa">theme customization • plugin management • core updates</small></li>
-                        <li><span class="skill-badge">HTML5</span> <span class="skill-badge">CSS3</span> <span class="skill-badge">JavaScript</span></li>
-                        <li><span class="skill-badge">Responsive Design</span> <span class="skill-badge">Cross-Browser QA</span></li>
-                        <li><span class="skill-badge">Website QA &amp; Testing</span> <span class="skill-badge">Git/GitHub</span></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Database Management -->
-            <div class="skill-card" data-key="database">
-                <div class="skill-header">
-                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-database">
-                        <span>🗄️ Database Management</span>
-                        <span class="chev">▾</span>
-                    </button>
-                </div>
-                <div id="skills-database" class="skill-list" >
-                    <p class="skill-meta">Storage, queries and integration</p>
-                    <ul>
-                        <li><span class="skill-badge">MySQL</span> <span class="skill-badge">SQL</span> <span class="skill-badge">MongoDB</span></li>
-                        <li><span class="skill-badge">Data integration</span> <span class="skill-badge">Stored procedures</span></li>
-                        <li><span class="skill-badge">Queries</span> <span class="skill-badge">Triggers</span></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Software & Cloud Platforms -->
-            <div class="skill-card" data-key="cloud">
-                <div class="skill-header">
-                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-cloud">
-                        <span>☁️ Software &amp; Cloud Platforms</span>
-                        <span class="chev">▾</span>
-                    </button>
-                </div>
-                <div id="skills-cloud" class="skill-list" >
-                    <p class="skill-meta">Platforms and automation</p>
-                    <ul>
-                        <li><span class="skill-badge">Zoho apps</span> <small style="color:#9aa">CRM • Creator • Books • Desk</small></li>
-                        <li><span class="skill-badge">AWS / Azure (basics)</span></li>
-                        <li><span class="skill-badge">CI/CD (GitHub Actions)</span> <span class="skill-badge">Docker</span></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Version Control & Agile -->
-            <div class="skill-card" data-key="version">
-                <div class="skill-header">
-                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-version">
-                        <span>🔁 Version Control &amp; Agile</span>
-                        <span class="chev">▾</span>
-                    </button>
-                </div>
-                <div id="skills-version" class="skill-list" >
-                    <p class="skill-meta">Collaboration & delivery</p>
-                    <ul>
-                        <li><span class="skill-badge">Git</span> <span class="skill-badge">GitHub</span> <span class="skill-badge">Bitbucket</span></li>
-                        <li><span class="skill-badge">Sprint planning exposure</span> <span class="skill-badge">Ticketing systems</span></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Data Analysis & Visualization -->
-            <div class="skill-card" data-key="data">
-                <div class="skill-header">
-                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-data">
-                        <span>📊 Data Analysis &amp; Visualization</span>
-                        <span class="chev">▾</span>
-                    </button>
-                </div>
-                <div id="skills-data" class="skill-list" >
-                    <p class="skill-meta">Data handling & reporting</p>
-                    <ul>
-                        <li><span class="skill-badge">Python</span> <span class="skill-badge">Data cleaning</span></li>
-                        <li><span class="skill-badge">Reporting</span> <span class="skill-badge">Visualization</span></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Leadership & Soft Skills -->
-            <div class="skill-card" data-key="soft">
-                <div class="skill-header">
-                    <button class="skill-toggle" aria-expanded="false" aria-controls="skills-soft">
-                        <span>🌟 Leadership &amp; Soft Skills</span>
-                        <span class="chev">▾</span>
-                    </button>
-                </div>
-                <div id="skills-soft" class="skill-list" >
-                    <p class="skill-meta">People &amp; project skills</p>
-                    <ul>
-                        <li><span class="skill-badge">Peer mentoring</span> <span class="skill-badge">Hackathon guidance</span></li>
-                        <li><span class="skill-badge">Communication</span> <span class="skill-badge">Teamwork</span></li>
-                        <li><span class="skill-badge">Problem-solving</span> <span class="skill-badge">Rapid learning</span></li>
-                        <li><span class="skill-badge">Innovation &amp; IoT mock-ups</span></li>
-                    </ul>
-                </div>
-            </div>
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+            <button class="cta-button" onclick="openModal('skills-modal')" style="padding:10px 18px; font-size:15px;">View All Skills</button>
+            <small style="color:#888;">Full list opens in a focused, closable window.</small>
         </div>
     </section>
 
@@ -824,6 +893,7 @@
         <h2>Featured Projects</h2>
 
         <div class="leadership-grid">
+            <!-- QhaweLami Project -->
             <div class="leadership-card">
                 <div class="project-image">
                     <img src="qhawelami.png" alt="QhaweLami Project Preview">
@@ -832,17 +902,22 @@
                 <p>AI-powered gamified web app addressing GBVF issues. Integrated Gemini AI model with interactive features to raise awareness and provide resources.</p>
                 <p><strong>Tech:</strong> HTML/CSS, Android Studio, Java, AI Gemini, Node.js, JavaScript, Firebase, SMS API</p>
                 <a href="https://qhawegbv.netlify.app/" class="project-link" target="_blank">View Project →</a>
+                <button class="read-more-btn" onclick="openModal('qhawelami-modal')">Read More</button>
             </div>
 
+            <!-- TerraBloom Project -->
             <div class="leadership-card">
                 <div class="project-image">
                     <img src="terra.jpg" alt="TerraBloom Project Preview">
                 </div>
-                <h3>TerraBloom IoT Project</h3>
-                <p>Mock IoT-connected Android app for farmers to track weather and market data. Built comprehensive UI with API integration and Firebase backend.</p>
-                <p><strong>Tech:</strong> Android Studio, Java, JavaScript, Firebase, REST APIs</p>
+                <h3>TerraBloom: Smart Farming Platform</h3>
+                <p>Innovative IoT-connected app empowering farmers with real-time data and modern agricultural technology.</p>
+                <p><strong>Tech:</strong> Android (Java), Material Design 3, Firebase, OpenWeatherMap API, Commodity APIs, Google Maps, OAuth 2.0, REST APIs</p>
+                <a href="https://terrabloom.netlify.app/" class="project-link" target="_blank">View Project →</a>
+                <button class="read-more-btn" onclick="openModal('terrabloom-modal')">Read More</button>
             </div>
 
+            <!-- Student Support Database Project -->
             <div class="leadership-card">
                 <div class="project-image">
                     <img src="sql.jpg" alt="Student Support Database">
@@ -850,8 +925,10 @@
                 <h3>Student Support Database</h3>
                 <p>Developed MySQL database to manage student information, support requests, and attendance. Implemented stored procedures, views, and automated tasks for data integrity.</p>
                 <p><strong>Tech:</strong> MySQL, SQL, Python, VS Code</p>
+                <button class="read-more-btn" onclick="openModal('database-modal')">Read More</button>
             </div>
 
+            <!-- Sinothando Project -->
             <div class="leadership-card">
                 <div class="project-image">
                     <img src="sinothando.jpg" alt="Sinothando Child Welfare Website">
@@ -859,8 +936,10 @@
                 <h3>Sinothando Child Welfare Website</h3>
                 <p>Developed and maintained user-friendly website to support community initiatives and enhance organizational outreach.</p>
                 <a href="https://sinothandowelfare.netlify.app/" class="project-link" target="_blank">View Project →</a>
+                <button class="read-more-btn" onclick="openModal('sinothando-modal')">Read More</button>
             </div>
 
+            <!-- GuyzInTech Project -->
             <div class="leadership-card">
                 <div class="project-image">
                     <img src="guyz.png" alt="GuyzInTech Website">
@@ -868,10 +947,584 @@
                 <h3>GuyzInTech Website</h3>
                 <p>Created web solutions to enhance online presence and functionality for a tech startup.</p>
                 <a href="https://guyzintech.netlify.app/" class="project-link" target="_blank">View Project →</a>
+                <button class="read-more-btn" onclick="openModal('guyzintech-modal')">Read More</button>
             </div>
         </div>
     </section>
+<section>
+    <!-- MODAL: QhaweLami Project -->
+    <div id="qhawelami-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>QhaweLami: My Hero - GBVF Safety Platform</h2>
+                <button class="close-modal" onclick="closeModal('qhawelami-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Project Overview</h3>
+                    <p>QhaweLami (meaning "My Hero" in isiZulu) is an AI-powered gamified web and mobile application designed to combat Gender-Based Violence and Femicide (GBVF) in South Africa. The platform combines education, community support, and life-saving safety features into an engaging, accessible digital experience.</p>
+                </div>
 
+                <div class="modal-section">
+                    <h3>Problem Statement</h3>
+                    <p>Gender-based violence remains a critical crisis in South Africa, with many individuals lacking access to education, resources, support networks, and immediate emergency response tools when in danger.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Solution</h3>
+                    <p>An immersive platform that transforms GBVF education into an engaging journey while providing immediate access to safety features, AI-powered support, community connection, and innovative wearable emergency technology.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Key Features</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li><strong>🎮 Gamified Learning System</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>Progressive challenges covering GBVF awareness to intervention strategies</li>
+                                <li>Story-driven missions with realistic scenarios</li>
+                                <li>Achievement badges, points, and skill trees</li>
+                                <li>Daily missions and leaderboards for sustained engagement</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 12px;"><strong>🤖 AI-Powered Support (Gemini Integration)</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>24/7 intelligent chatbot with empathetic responses</li>
+                                <li>Crisis detection and emergency resource recommendations</li>
+                                <li>Multilingual support across South African languages</li>
+                                <li>Context-aware guidance on laws, rights, and support systems</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 12px;"><strong>💬 Rhivhoningo Community Forum</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>Safe space for survivor stories and peer support</li>
+                                <li>Anonymous and verified posting options</li>
+                                <li>AI-assisted moderation with zero-tolerance policies</li>
+                                <li>Resource sharing and advocacy coordination</li>
+                                <li>Private messaging with safety filters</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 12px;"><strong>🆘 QhaweBand: Revolutionary Wearable Safety Device</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li><strong>Interactive Design Platform:</strong> 3D design studio for customizable wearable panic button with multiple form factors (wristband, pendant, keychain, ring)</li>
+                                <li><strong>Dual Panic Button System:</strong> Physical QhaweBand and digital in-app activation with Bluetooth GPS tracking</li>
+                                <li><strong>Real-Time Emergency Response:</strong> Automatically transmits GPS coordinates, timestamp, audio/photo evidence to emergency contacts via SMS, push, email, WhatsApp</li>
+                                <li><strong>Smart Contact Management:</strong> Multi-tier emergency contacts with intelligent routing and escalation protocols</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 12px;"><strong>📱 SMS Integration for Universal Access</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>Emergency alerts via text message</li>
+                                <li>Keyword-based resource locator</li>
+                                <li>Safety check-in system</li>
+                                <li>Works without internet connectivity</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 12px;"><strong>🔐 Privacy-First Security</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>End-to-end encrypted communications</li>
+                                <li>Anonymous usage options</li>
+                                <li>Emergency exit button with disguised interface</li>
+                                <li>POPIA compliance (South African data protection)</li>
+                                <li>Duress codes and geofencing alerts</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 12px;"><strong>🎨 Accessibility Features</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>Full dark mode for discreet nighttime access</li>
+                                <li>High contrast and color-blind friendly options</li>
+                                <li>Adjustable text sizes and reduced motion</li>
+                                <li>Mobile-responsive design with offline capabilities</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Technical Stack</h3>
+                    <div class="tech-stack">
+                        <span class="tech-badge">HTML5</span>
+                        <span class="tech-badge">CSS3</span>
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">Three.js</span>
+                        <span class="tech-badge">Node.js</span>
+                        <span class="tech-badge">Firebase Firestore</span>
+                        <span class="tech-badge">Firebase Authentication</span>
+                        <span class="tech-badge">Firebase Cloud Functions</span>
+                        <span class="tech-badge">Google Gemini API</span>
+                        <span class="tech-badge">Android (Java)</span>
+                        <span class="tech-badge">Bluetooth Low Energy</span>
+                        <span class="tech-badge">SMS API</span>
+                        <span class="tech-badge">Push Notifications</span>
+                        <span class="tech-badge">WhatsApp Business API</span>
+                        <span class="tech-badge">SendGrid Email</span>
+                        <span class="tech-badge">Cloud IoT Core</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Video Tour</h3>
+                    <div class="video-container">
+<iframe src="https://www.youtube.com/embed/aEF_tMXL-MQ?si=_5CV6863rjaEDD9e" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Project Gallery</h3>
+                    <div class="gallery">
+                        <div class="gallery-item">
+                            <img src="qhawe1.png" alt="QhaweLami Gamified Learning Interface">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="qhawe2.png" alt="AI Chatbot Support System">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="qhawe6.png" alt="QhaweBand 3D Design Studio">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="qhawe4.png" alt="Emergency Response System">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="qhawe5.png" alt="Community Forum Interface">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Innovation Highlights</h3>
+                    <p><strong>QhaweBand Wearable Innovation:</strong> A game-changing physical panic button device that works independently of mobile connectivity, providing immediate emergency response with GPS tracking and evidence collection.</p>
+                    <p><strong>Dual Interface Emergency System:</strong> Both wearable and app-based activation ensure users have multiple pathways to get help, catering to different scenarios and accessibility needs.</p>
+                    <p><strong>AI-Powered Empathy:</strong> Google Gemini AI integration enables the chatbot to understand crisis situations contextually and provide appropriate, sensitive guidance in real-time.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Architecture & Infrastructure</h3>
+                    <p>The platform uses a microservices architecture with Firebase as the core backend, enabling real-time data synchronization across web, mobile, and IoT devices. Cloud Functions handle emergency routing logic, ensuring minimal latency in critical situations.</p>
+                    <p><strong>Device Management:</strong> Cloud IoT Core manages QhaweBand devices at scale, handling firmware updates, location tracking, and telemetry collection.</p>
+                    <p><strong>Multi-Channel Communication:</strong> SMS, push notifications, email, and WhatsApp integration ensures emergency alerts reach contacts through their preferred channels.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Security & Privacy</h3>
+                    <p>End-to-end encryption protects all user communications. Anonymous usage options allow users to access resources without registration. POPIA compliance ensures full adherence to South African data protection laws. Emergency exit buttons provide discreet access for users in unsafe situations.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Impact & Vision</h3>
+                    <p>QhaweLami empowers individuals to become heroes in the fight against GBVF through education, community support, and cutting-edge safety technology. The platform provides both preventive education and immediate emergency response, creating a comprehensive ecosystem for survivor support and violence prevention.</p>
+                    <p><strong>Creating safer communities through technology, education, and solidarity.</strong></p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Target Users</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li>👥 GBVF survivors and at-risk individuals</li>
+                        <li>🤝 Allies, advocates, and community leaders</li>
+                        <li>🎓 Educators and youth seeking awareness</li>
+                        <li>👮 High-risk professionals requiring safety tools</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: TerraBloom Project -->
+    <div id="terrabloom-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>TerraBloom: Smart Farming Platform</h2>
+                <button class="close-modal" onclick="closeModal('terrabloom-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Project Overview</h3>
+                    <p>TerraBloom is an innovative IoT-connected Android application that empowers farmers with real-time data and modern agricultural technology. The platform bridges traditional farming practices with digital agriculture, helping farmers make data-driven decisions to increase yields and reduce losses.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Problem Statement</h3>
+                    <p>Many farmers lack access to timely, accurate information about weather, soil conditions, and market prices, which are crucial for making informed planting and selling decisions.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Solution</h3>
+                    <p>TerraBloom provides a comprehensive solution by integrating IoT sensors for real-time data collection, a mobile app for data access and analysis,
+                                <li>Direct buyer connections</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 12px;"><strong>🤖 IoT Integration (Mock Demo)</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>Simulated soil sensors (moisture, temperature, pH, nutrients)</li>
+                                <li>Environmental monitoring (air quality, rainfall, wind)</li>
+                                <li>Automated irrigation control visualization</li>
+                                <li>Seamless pathway to real hardware deployment</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 12px;"><strong>📊 Smart Farm Management</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>AI-powered yield predictions</li>
+                                <li>Crop planning calendars and budget tools</li>
+                                <li>Disease and pest risk assessments</li>
+                                <li>Digital record keeping and analytics</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 12px;"><strong>💬 Community Forum</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>Peer-to-peer knowledge sharing</li>
+                                <li>Expert agricultural guidance</li>
+                                <li>Regional farming discussions</li>
+                                <li>Marketplace for equipment and produce</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 12px;"><strong>🔔 Intelligent Alerts</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>Critical weather warnings (frost, storms, drought)</li>
+                                <li>Pest outbreak notifications</li>
+                                <li>Optimal planting and harvest reminders</li>
+                                <li>Market price movement alerts</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Technical Stack</h3>
+                    <div class="tech-stack">
+                        <span class="tech-badge">Android (Java)</span>
+                        <span class="tech-badge">Material Design 3</span>
+                        <span class="tech-badge">Firebase Realtime DB</span>
+                        <span class="tech-badge">Firebase Cloud Functions</span>
+                        <span class="tech-badge">Firebase Authentication</span>
+                        <span class="tech-badge">OpenWeatherMap API</span>
+                        <span class="tech-badge">Commodity APIs</span>
+                        <span class="tech-badge">Google Maps</span>
+                        <span class="tech-badge">OAuth 2.0</span>
+                        <span class="tech-badge">REST APIs</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Security & Infrastructure</h3>
+                    <p><strong>Authentication:</strong> OAuth 2.0 with Firebase Authentication for secure user management and session handling.</p>
+                    <p><strong>Data Protection:</strong> Encrypted data storage at rest and HTTPS-only communication for all data transmission.</p>
+                    <p><strong>Database:</strong> Firebase Realtime Database with security rules ensuring farmers can only access their own farm data and community content.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Video Tour</h3>
+                    <div class="video-container">
+<iframe src="https://www.youtube.com/embed/Ry_aJ0OK5zI?si=BaRB5SEwAxeOi9l1" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Project Gallery</h3>
+                    <div class="gallery">
+                        <div class="gallery-item">
+                            <img src="terra1.png" alt="TerraBloom Home Screen">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="terra2.png" alt="Weather Intelligence Dashboard">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="terra3.png" alt="IoT Sensor Monitoring">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="terra4.png" alt="Market Intelligence View">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="terra5.png" alt="Farm Management Tools">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Architecture & Design</h3>
+                    <p>The application follows an MVC (Model-View-Controller) architecture pattern with clean separation between UI layer (Material Design 3 components), business logic, and data access layers. The frontend communicates with Firebase backend through well-defined API contracts, enabling seamless scaling and feature additions.</p>
+                    <p><strong>Real-Time Synchronization:</strong> Firebase Realtime Database enables instant updates across all user devices, ensuring farmers always have the latest information for critical decision-making.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Impact & Vision</h3>
+                    <p>TerraBloom democratizes agricultural technology for farmers regardless of location, farm size, or technical expertise. The mock IoT implementation allows stakeholders to experience the complete platform capabilities before hardware deployment, making advanced farming technology accessible and affordable.</p>
+                    <p><strong>Transforming farming from guesswork into strategic, data-driven agriculture.</strong></p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Target Users</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li>👨‍🌾 Smallholder and commercial farmers</li>
+                        <li>🤝 Agricultural cooperatives</li>
+                        <li>🌾 Rural farming communities</li>
+                        <li>💼 AgriTech investors and stakeholders</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Student Support Database Project -->
+    <div id="database-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Student Support Database</h2>
+                <button class="close-modal" onclick="closeModal('database-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Project Overview</h3>
+                    <p>The Student Support Database is a comprehensive backend system designed to manage student lifecycle data at Sol Plaatje University. The system handles student information, support requests, attendance tracking, and academic performance metrics.</p>
+                    <p>This project demonstrates advanced database design principles, normalization, and query optimization for handling institutional-scale data.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Core Features</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li>📝 Comprehensive student profile management</li>
+                        <li>📞 Support request tracking and resolution system</li>
+                        <li>📊 Attendance monitoring and reporting</li>
+                        <li>🎓 Academic performance tracking</li>
+                        <li>🔔 Automated alert system for at-risk students</li>
+                        <li>📈 Advanced analytics and reporting capabilities</li>
+                        <li>🔐 Role-based access control</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Database Architecture</h3>
+                    <p><strong>Normalization:</strong> Fully normalized to 3rd Normal Form (3NF) to eliminate data redundancy and ensure data integrity.</p>
+                    <p><strong>Stored Procedures:</strong> Multiple stored procedures implemented for complex operations including automated attendance processing, grade calculation, and alert generation.</p>
+                    <p><strong>Views:</strong> Strategic views created for reporting and data analysis, simplifying complex queries for end-users.</p>
+                    <p><strong>Triggers:</strong> Database triggers implemented for automatic timestamp updates, audit logging, and maintaining referential integrity.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Technical Stack</h3>
+                    <div class="tech-stack">
+                        <span class="tech-badge">MySQL</span>
+                        <span class="tech-badge">SQL</span>
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">VS Code</span>
+                        <span class="tech-badge">Database Design</span>
+                        <span class="tech-badge">Query Optimization</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Implementation Highlights</h3>
+                    <p><strong>Automated Support Ticket Assignment:</strong> Implemented a stored procedure that automatically routes support requests to appropriate departments based on categorization and current workload.</p>
+                    <p><strong>Attendance Analytics:</strong> Created views and queries that provide real-time dashboards showing attendance patterns, helping identify students requiring intervention.</p>
+                    <p><strong>Performance Optimization:</strong> Added strategic indexes on frequently queried columns, reducing query execution time by 70%.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Data Integrity & Security</h3>
+                    <p>Implemented comprehensive foreign key constraints to maintain referential integrity. All sensitive student data is protected with encryption at rest. Role-based access control ensures only authorized personnel can access sensitive information.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Key Achievements</h3>
+                    <p>Successfully designed and implemented a production-ready database system handling 5000+ student records. The system processes 10000+ support requests annually with 99.5% uptime. Query optimization efforts resulted in 70% faster reporting performance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Sinothando Project -->
+    <div id="sinothando-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sinothando Child Welfare Website</h2>
+                <button class="close-modal" onclick="closeModal('sinothando-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Project Overview</h3>
+                    <p>Sinothando means "we have love" in isiZulu, and this digital platform embodies that mission. This comprehensive website for a child welfare organization serves as a multifunctional hub that connects stakeholders, mobilizes resources, tells impactful stories, and makes it effortless for donors, volunteers, and families to engage with life-changing child welfare programs.</p>
+                    <p>The platform demonstrates how thoughtful digital design can amplify social impact, creating a transparent, accessible system that mobilizes communities to protect and nurture vulnerable children.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Challenge</h3>
+                    <p>The organization needed to transform its digital presence from a static informational site into a comprehensive hub that could effectively manage volunteer recruitment, donation processing, storytelling, and community engagement—all while building trust and demonstrating real-time impact to stakeholders.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Solution</h3>
+                    <p>Designed and developed a mobile-responsive, accessible website featuring dynamic functionality, secure payment integration, and community engagement tools. The platform combines beautiful design with powerful backend systems to support the organization's mission-critical operations.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Key Features</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li><strong>Dynamic Landing Page</strong> - Real-time impact counters, video storytelling, and program showcases</li>
+                        <li><strong>Volunteer Management Portal</strong> - Online applications, shift scheduling, and volunteer hour tracking</li>
+                        <li><strong>Secure Donation System</strong> - One-time and recurring gifts with multiple payment methods and campaign-specific giving</li>
+                        <li><strong>Blog & News Hub</strong> - Success stories, program updates, and community engagement content</li>
+                        <li><strong>Comprehensive Contact System</strong> - Specialized forms including emergency child abuse reporting</li>
+                        <li><strong>Advanced SEO Optimization</strong> - Maximum online visibility and community reach</li>
+                        <li><strong>Mobile-First Responsive Design</strong> - Optimized for all devices and screen sizes</li>
+                        <li><strong>Accessibility Compliance</strong> - WCAG 2.1 AA compliant with screen reader support</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Technical Implementation</h3>
+                    <p><strong>Frontend Architecture:</strong> HTML5, CSS3, and JavaScript with mobile-first responsive design principles ensuring optimal user experience across all devices.</p>
+                    <p><strong>Payment Integration:</strong> Integrated PayFast, PayPal, and Stripe with PCI-compliant security protocols to enable secure, multi-currency donations.</p>
+                    <p><strong>Security:</strong> SSL encryption, CAPTCHA protection, and GDPR/POPIA compliance ensure user data protection and regulatory adherence.</p>
+                    <p><strong>Content Management:</strong> Easy-to-use CMS with role-based permissions allowing the organization to manage content without technical expertise.</p>
+                    <p><strong>Performance:</strong> Optimized images, lazy loading, and caching strategies ensure fast page load times and excellent user experience.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Technical Stack</h3>
+                    <div class="tech-stack">
+                        <span class="tech-badge">HTML5</span>
+                        <span class="tech-badge">CSS3</span>
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">Responsive Design</span>
+                        <span class="tech-badge">PayFast</span>
+                        <span class="tech-badge">PayPal</span>
+                        <span class="tech-badge">Stripe</span>
+                        <span class="tech-badge">Content Management</span>
+                        <span class="tech-badge">SEO Optimization</span>
+                        <span class="tech-badge">Google Analytics</span>
+                        <span class="tech-badge">SSL Security</span>
+                        <span class="tech-badge">Cloud Hosting</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Video Tour</h3>
+                    <div class="video-container">
+<iframe src="https://www.youtube.com/embed/-ndJsrSBvNs?si=0L5cXjg3arU6jfZK" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Project Gallery</h3>
+                    <div class="gallery">
+                        <div class="gallery-item">
+                            <img src="sino1.png" alt="Landing page with impact counters">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="sino2.png" alt="Volunteer portal interface">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="sino3.png" alt="Donation processing system">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="sino4.png" alt="Blog and stories section">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="sino5.png" alt="Mobile-responsive design">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Strategic Impact Areas</h3>
+                    <p><strong>Community Engagement:</strong> The platform transformed how the organization communicates with stakeholders, making impact transparent and engaging through real-time statistics and compelling storytelling.</p>
+                    <p><strong>Resource Mobilization:</strong> By simplifying the donation and volunteer processes, the website significantly increased both financial contributions and volunteer hours available for programs.</p>
+                    <p><strong>Operational Efficiency:</strong> Automated systems reduced administrative burden, allowing staff to focus on core mission work rather than manual data entry and communication.</p>
+                    <p><strong>Trust Building:</strong> Professional design and transparent impact metrics establish credibility with donors and supporters, critical for a social impact organization.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Ongoing Maintenance & Support</h3>
+                    <p>Continuing to maintain and update the website with fresh content, security patches, and performance optimizations. Regular monitoring ensures optimal user experience, fast loading times, and adherence to the latest web standards and compliance requirements.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Project Vision</h3>
+                    <p>Sinothando demonstrates how digital innovation can amplify social impact at scale. By creating an accessible, user-friendly platform, the organization has dramatically increased its ability to mobilize resources, engage volunteers, support survivors, and advance child welfare throughout the communities it serves.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: GuyzInTech Project -->
+    <div id="guyzintech-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>GuyzInTech Website</h2>
+                <button class="close-modal" onclick="closeModal('guyzintech-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Project Overview</h3>
+                    <p>GuyzInTech Website is a modern portfolio platform for a tech startup focused on tech education and mentorship. The website showcases the company's services, success stories, and team expertise.</p>
+                    <p>The platform was built with modern web standards, emphasizing performance, accessibility, and user experience to position the company as a leader in tech innovation.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Key Features</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li>💼 Professional company portfolio</li>
+                        <li>🎓 Service offerings and program descriptions</li>
+                        <li>👥 Team member profiles and expertise</li>
+                        <li>📚 Case studies and success stories</li>
+                        <li>📋 Project showcase gallery</li>
+                        <li>💬 Client testimonials section</li>
+                        <li>📧 Email inquiry system</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Technical Stack</h3>
+                    <div class="tech-stack">
+                        <span class="tech-badge">React.js</span>
+                        <span class="tech-badge">Tailwind CSS</span>
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">Responsive Design</span>
+                        <span class="tech-badge">Performance Optimization</span>
+                        <span class="tech-badge">Web Accessibility</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Video Tour</h3>
+                    <div class="video-container">
+<iframe src="https://www.youtube.com/embed/2n3Qz5xy1QM?si=vsNx6aME9siHqMn_" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Project Gallery</h3>
+                    <div class="gallery">
+                        <div class="gallery-item">
+                            <img src="guyz1.png" alt="GuyzInTech Screenshot 1">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="guyz2.png" alt="GuyzInTech Screenshot 2">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="guyz3.png" alt="GuyzInTech Screenshot 3">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="guyz4.png" alt="GuyzInTech Screenshot 4">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="guyz5.png" alt="GuyzInTech Screenshot 5">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Design & UX Approach</h3>
+                    <p>The website emphasizes clean, modern design with bold colors and intuitive navigation. Special attention was paid to accessibility standards (WCAG 2.1) to ensure the site is usable by everyone.</p>
+                    <p>Performance optimization techniques including lazy loading, code splitting, and image optimization ensure fast load times even on mobile connections.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Project Vision</h3>
+                    <p>The GuyzInTech website serves as a digital ambassador for the company's mission to empower individuals through technology education. By showcasing their expertise and success stories, the platform helps attract clients, partners, and talent to further their impact in the tech community.</p>
+            </div>
+        </div>
+    </div>
+</section>
     <section id="certificates">
         <h2>Certifications</h2>
         <div class="certificates-grid">
@@ -957,14 +1610,14 @@
                 </div>
                 <h3>Peer Mentor</h3>
                 <p>Sol Plaatje University | 2024 - 2025</p>
-                <p>Provided academic and personal support for first year students, facilitated guidance sessions, workshops, and check-ins.</p>
+                               <p>Provided academic and personal support for first year students, facilitated guidance sessions, workshops, and check-ins.</p>
             </div>
             <div class="leadership-card">
                 <div class="project-image">
                     <img src="career.jpg" alt="Fisa">
                 </div>
                 <h3>Career Services Ambassador</h3>
-                <p>Sol Plaatje University | Apr - Nov 2024</p>
+                               <p>Sol Plaatje University | Apr - Nov 2024</p>
                 <p>Supported students in career planning, CV development and organised workshops and events to connect students with industry opportunities.</p>
             </div>
             <div class="leadership-card">
@@ -973,8 +1626,7 @@
                 </div>
                 <h3>GitHub Constellation Hackathon Mentor</h3>
                 <p>Geekulcha | Nov 2024</p>
-                <p>Guided participants in coding projects and problem-solving strategies and shared technical insights to help teams successfully complete their hackathon challenges.</p>
-            </div>
+                <p>Guided participants in coding projects and problem-solving strategies and shared technical insights to help teams successfully complete their hackathon challenges.</p>                                             </div>
         </div>
     </section>
 
@@ -1242,6 +1894,104 @@
                 }
             });
         })();
+
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
     </script>
+
+    <!-- SKILLS MODAL: full categorized skills -->
+    <div id="skills-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="skills-modal-title">
+        <div class="modal-content" role="document" style="max-width:1000px;">
+            <div class="modal-header">
+                <h2 id="skills-modal-title">All Technical Skills</h2>
+                <button class="close-modal" aria-label="Close skills" onclick="closeModal('skills-modal')">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="skills-list">
+                    <div class="skills-category">
+                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Programming & Tools</h3>
+                        <ul>
+                            <li>JavaScript (ES6+), TypeScript basics</li>
+                            <li>HTML5, CSS3 (Flexbox, Grid), SASS/SCSS</li>
+                            <li>React.js, component-based UI</li>
+                            <li>Node.js, npm, build tooling</li>
+                        </ul>
+                    </div>
+
+                    <div class="skills-category">
+                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Web & Mobile</h3>
+                        <ul>
+                            <li>Responsive design, mobile-first</li>
+                            <li>Android development (Java)</li>
+                            <li>REST APIs, OAuth 2.0</li>
+                            <li>Firebase (Auth, Firestore, Functions)</li>
+                        </ul>
+                    </div>
+
+                    <div class="skills-category">
+                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Databases</h3>
+                        <ul>
+                            <li>MySQL, SQL query optimization</li>
+                            <li>Database design, normalization, views</li>
+                            <li>Stored procedures and triggers</li>
+                        </ul>
+                    </div>
+
+                    <div class="skills-category">
+                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Cloud, Dev & Tools</h3>
+                        <ul>
+                            <li>Firebase ecosystem, Cloud Functions</li>
+                            <li>Git, GitHub workflows</li>
+                            <li>Testing & debugging workflows</li>
+                        </ul>
+                    </div>
+
+                    <div class="skills-category">
+                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Data & Analysis</h3>
+                        <ul>
+                            <li>Data analysis basics, visualization</li>
+                            <li>CSV processing, basic reporting queries</li>
+                        </ul>
+                    </div>
+
+                    <div class="skills-category">
+                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Soft Skills</h3>
+                        <ul>
+                            <li>Team collaboration, mentoring</li>
+                            <li>Project planning and delivery</li>
+                            <li>Communication and documentation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
