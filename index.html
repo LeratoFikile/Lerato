@@ -24,6 +24,8 @@
             --radius: 8px;
             --border-alpha-10: rgba(108, 183, 44, 0.1);
         }
+
+
         * {
             margin: 0;
             padding: 0;
@@ -69,6 +71,10 @@
         }
 
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+        /* Respect prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+        }
 
         nav {
             background-color: var(--nav-bg);
@@ -82,11 +88,13 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
-        nav ul {
+        .nav-inner { max-width: 1200px; margin: 0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding: 0 10%; }
+        .nav-menu {
             list-style: none;
             display: flex;
             justify-content: center;
             gap: 50px;
+            align-items: center;
         }
 
         nav a {
@@ -114,6 +122,24 @@
 
         nav a:hover::after {
             width: 100%;
+        }
+
+        /* Hamburger / Toggle */
+        .nav-toggle { display: none; background: transparent; border:1px solid transparent; color: var(--muted); padding: 8px; border-radius:6px; cursor: pointer; }
+        .nav-toggle svg { display:block; }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-menu { position: absolute; top: 64px; right: 10%; left: 10%; display: flex; flex-direction: column; gap: 8px; padding: 12px; background: rgba(12,12,12,0.98); border-radius: 8px; box-shadow: 0 8px 36px rgba(0,0,0,0.6); max-height: 0; overflow: hidden; transition: max-height 0.28s ease; }
+            nav.open .nav-menu { max-height: 520px; }
+            .nav-inner { padding: 0 4%; }
+            .nav-toggle { display: inline-flex; }
+            .nav-inner .brand { font-weight:700; color:var(--text); text-decoration:none; font-size:16px; }
+            /* make top nav icons inline and smaller on mobile */
+            .nav-menu li a[aria-label] { width:36px; height:36px; border-radius:6px; }
+            .nav-menu { gap: 6px; }
+            .nav-menu li { padding: 6px 4px; }
+            .nav-menu a { display: block; padding: 8px 12px; }
         }
 
         .hero {
@@ -233,10 +259,11 @@
         }
 
         section {
-            padding: 100px 10%;
+            padding: 80px 10%;
             border-bottom: 1px solid var(--border-alpha-10);
             position: relative;
         }
+        section { scroll-margin-top: 96px; }
 
         section::before {
             content: '';
@@ -254,6 +281,7 @@
             color: var(--accent);
             text-shadow: 0 2px 10px rgba(var(--accent-rgb), 0.1);
         }
+        section h2::after { content: ''; display:inline-block; margin-left:10px; width:64px; height:4px; background: linear-gradient(90deg, transparent, var(--accent), transparent); border-radius:3px; vertical-align:middle; }
 
         .skills-grid {
             display: grid;
@@ -280,6 +308,13 @@
             line-height: 1.6;
         }
 
+        /* Override section styling for modal container to avoid double separators */
+        .modals { padding: 0; border: none; }
+
+        /* Back To Top */
+        .back-to-top { position: fixed; right: 20px; bottom: 20px; width: 44px; height: 44px; display: grid; place-items: center; background: var(--accent); color: #000; border-radius: 8px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); border: none; cursor: pointer; opacity: 0; transform: translateY(6px); pointer-events: none; transition: opacity 0.28s ease, transform 0.28s ease; z-index: 3000; }
+        .back-to-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
         .project-card {
             background-color: #1a1a1a;
             padding: 30px;
@@ -304,7 +339,7 @@
         }
 
         .project-link {
-            color: #6cb72c;
+            color: var(--accent);
             text-decoration: none;
             font-size: 14px;
         }
@@ -640,7 +675,7 @@
                 font-size: 36px;
             }
 
-            nav ul {
+            .nav-menu {
                 flex-wrap: wrap;
                 gap: 20px;
             }
@@ -813,7 +848,7 @@
         .read-more-btn {
             display: inline-block;
             margin-top: 15px;
-            background-color: #6cb72c;
+            background-color: var(--accent);
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
@@ -835,12 +870,198 @@
         #skills-modal .skills-list { display: grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
         #skills-modal .skills-list ul { color: #bdbdbd; line-height:1.6; margin:0; padding-left:18px; }
         #skills-modal .skills-category { background:#121212; padding:18px; border-radius:8px; border:1px solid rgba(108,183,44,0.06); }
+
+        /* Chatbot Styles */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 80px;
+            z-index: 3000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(108, 183, 44, 0.3);
+            transition: all 0.3s ease;
+            font-size: 24px;
+        }
+
+        .chatbot-toggle:hover {
+            background: var(--accent-600);
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(108, 183, 44, 0.4);
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: linear-gradient(135deg, #151515 0%, #1a1a1a 100%);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(108, 183, 44, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-header {
+            background: var(--accent);
+            color: #000;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .chatbot-sms-btn {
+            background: #000;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            transition: background 0.3s ease;
+        }
+
+        .chatbot-sms-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .chatbot-close {
+            background: transparent;
+            border: none;
+            color: #000;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #0f0f0f;
+            border-bottom: 1px solid rgba(108, 183, 44, 0.1);
+        }
+
+        .chatbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .message.bot {
+            background: var(--accent);
+            color: #000;
+            align-self: flex-start;
+            margin-right: auto;
+        }
+
+        .message.user {
+            background: #2a2a2a;
+            color: #fff;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .chatbot-input-area {
+            display: flex;
+            padding: 15px;
+            background: #151515;
+            gap: 10px;
+        }
+
+        #chatbot-input {
+            flex: 1;
+            padding: 10px 14px;
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        #chatbot-input:focus {
+            border-color: var(--accent);
+        }
+
+        .chatbot-send {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .chatbot-send:hover {
+            background: var(--accent-600);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .chatbot-window {
+                width: calc(100vw - 40px);
+                height: 400px;
+                bottom: 90px;
+                right: 20px;
+            }
+        }
     </style>
 </head>
 <body>
     <a href="#main" class="skip-link">Skip to content</a>
-    <nav>
-        <ul>
+    <nav class="navbar" role="navigation" aria-label="Primary navigation">
+        <div class="nav-inner">
+        <a href="#home" class="brand" aria-label="Home">Lerato</a>
+
+        <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Toggle navigation">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+        </button>
+            <ul id="primary-navigation" class="nav-menu">
             <li><a href="#home">Home</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#skills">Skills</a></li>
@@ -855,7 +1076,11 @@
             <li><a href="https://github.com/LeratoFikile" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" style="display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:6px; background:#333; color:#fff; margin-left:8px;">
               <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.3 3.438 9.8 8.205 11.387.6.111.82-.261.82-.58 0-.285-.01-1.04-.016-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.745.083-.73.083-.73 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.775.418-1.305.76-1.605-2.665-.303-5.467-1.332-5.467-5.93 0-1.31.469-2.381 1.235-3.221-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.289-1.552 3.295-1.23 3.295-1.23 .655 1.653.243 2.873.12 3.176 .77.84 1.233 1.911 1.233 3.221 0 4.61-2.807 5.625-5.479 5.922 .43.37.823 1.096.823 2.21 0 1.596-.015 2.883-.015 3.276 0 .32.216.694.825.576C20.565 21.796 24 17.295 24 12 24 5.37 18.627 0 12 0z"/></svg>
             </a></li>
-        </ul>
+            <li><button id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark theme" style="display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:6px; background:#333; color:#fff; margin-left:8px; border:none; cursor:pointer;">
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/></svg>
+            </button></li>
+            </ul>
+        </div>
     </nav>
 
     <main id="main">
@@ -1014,7 +1239,7 @@
             </div>
         </div>
     </section>
-<section>
+<div class="modals" aria-hidden="true">
     <!-- MODAL: QhaweLami Project -->
     <div id="qhawelami-modal" class="modal">
         <div class="modal-content">
@@ -1133,7 +1358,7 @@
 
                 <div class="modal-section">
   <h3>Test It Yourself</h3>
-  <div id="qhawe-cred" style="background:#0f0f0f;padding:12px;border-radius:8px;border-left:4px solid #6cb72c;color:#bdbdbd;font-family:monospace;">
+    <div id="qhawe-cred" style="background:#0f0f0f;padding:12px;border-radius:8px;border-left:4px solid var(--accent);color:#bdbdbd;font-family:monospace;">
     <p style="margin:0 0 6px 0;"><strong>Username:</strong> <span class="u">leratomalatji0614@gmail.com</span></p>
     <p style="margin:0;"><strong>Password:</strong> <span class="p">123456789</span></p>
   </div>
@@ -1294,7 +1519,7 @@
 
                 <div class="modal-section">
   <h3>Test It Yourself</h3>
-  <div id="terra-cred" style="background:#0f0f0f;padding:12px;border-radius:8px;border-left:4px solid #6cb72c;color:#bdbdbd;font-family:monospace;">
+    <div id="terra-cred" style="background:#0f0f0f;padding:12px;border-radius:8px;border-left:4px solid var(--accent);color:#bdbdbd;font-family:monospace;">
     <p style="margin:0 0 6px 0;"><strong>Username:</strong> <span class="u">leratomalatjie0614@gmail.com</span></p>
     <p style="margin:0;"><strong>Password:</strong> <span class="p">123456789</span></p>
   </div>
@@ -1611,7 +1836,54 @@
             </div>
         </div>
     </div>
-</section>
+
+    <!-- MODAL: Projects by Skills -->
+    <div id="projects-by-skills-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Projects by Skills</h2>
+                <button class="close-modal" onclick="closeModal('projects-by-skills-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Web Development</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li><button class="read-more-btn" onclick="closeModal('projects-by-skills-modal'); openModal('qhawelami-modal')">QhaweLami: My Hero</button> - AI-powered gamified web app</li>
+                        <li><button class="read-more-btn" onclick="closeModal('projects-by-skills-modal'); openModal('sinothando-modal')">Sinothando Child Welfare Website</button> - User-friendly website for community initiatives</li>
+                        <li><button class="read-more-btn" onclick="closeModal('projects-by-skills-modal'); openModal('guyzintech-modal')">GuyzInTech Website</button> - Modern portfolio platform for tech startup</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>Mobile Development</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li><button class="read-more-btn" onclick="closeModal('projects-by-skills-modal'); openModal('qhawelami-modal')">QhaweLami: My Hero</button> - Android app with gamified features</li>
+                        <li><button class="read-more-btn" onclick="closeModal('projects-by-skills-modal'); openModal('terrabloom-modal')">TerraBloom: Smart Farming Platform</button> - IoT-connected Android application</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>Database Management</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li><button class="read-more-btn" onclick="closeModal('projects-by-skills-modal'); openModal('qhawelami-modal')">QhaweLami: My Hero</button> - Firebase Firestore integration</li>
+                        <li><button class="read-more-btn" onclick="closeModal('projects-by-skills-modal'); openModal('terrabloom-modal')">TerraBloom: Smart Farming Platform</button> - Firebase Realtime Database</li>
+                        <li><button class="read-more-btn" onclick="closeModal('projects-by-skills-modal'); openModal('database-modal')">Student Support Database</button> - MySQL database with stored procedures</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>AI & Machine Learning</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li><button class="read-more-btn" onclick="closeModal('projects-by-skills-modal'); openModal('qhawelami-modal')">QhaweLami: My Hero</button> - Integrated Gemini AI model for support</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>IoT & APIs</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li><button class="read-more-btn" onclick="closeModal('projects-by-skills-modal'); openModal('terrabloom-modal')">TerraBloom: Smart Farming Platform</button> - IoT sensors, OpenWeatherMap API, Commodity APIs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <section id="certificates">
         <h2>Certifications</h2>
         <div class="certificates-grid">
@@ -1751,13 +2023,13 @@
 
         <!-- Contact Info Cards -->
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; margin:30px 0; max-width:600px;">
-            <div style="background:#151515; padding:20px; border-radius:8px; border-left:4px solid #6cb72c;">
+            <div style="background:#151515; padding:20px; border-radius:8px; border-left:4px solid var(--accent);">
                 <h3 style="color:#9ae6a0; margin-bottom:8px; font-size:16px;">📧 Email</h3>
-                <a href="mailto:leratomalatji0614@gmail.com" style="color:#6cb72c; text-decoration:none; font-size:14px;">leratomalatji0614@gmail.com</a>
+                <a href="mailto:leratomalatji0614@gmail.com" style="color:var(--accent); text-decoration:none; font-size:14px;">leratomalatji0614@gmail.com</a>
             </div>
-            <div style="background:#151515; padding:20px; border-radius:8px; border-left:4px solid #6cb72c;">
+            <div style="background:#151515; padding:20px; border-radius:8px; border-left:4px solid var(--accent);">
                 <h3 style="color:#9ae6a0; margin-bottom:8px; font-size:16px;">📱 Phone</h3>
-                <a href="tel:+27681960560" style="color:#6cb72c; text-decoration:none; font-size:14px;">068 196 0560</a>
+                <a href="tel:+27681960560" style="color:var(--accent); text-decoration:none; font-size:14px;">068 196 0560</a>
             </div>
         </div>
         
@@ -1797,6 +2069,33 @@
     </section>
 
     </main>
+    <button id="back-to-top" class="back-to-top" aria-label="Scroll back to top" title="Back to top">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4 15l8-8 8 8H4z"/></svg>
+    </button>
+
+    <!-- Chatbot Widget -->
+    <div id="chatbot-widget" class="chatbot-widget" aria-hidden="true">
+        <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open chat" title="Chat with me">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3.05 1.05 4.42L2 22l5.58-1.05C9.95 21.64 11.46 22 13 22h7c1.1 0 2-.9 2-2V12c0-5.52-4.48-10-10-10zM8 10h8v2H8v-2zm0 4h6v2H8v-2z"/>
+            </svg>
+        </button>
+        <div id="chatbot-window" class="chatbot-window">
+            <div class="chatbot-header">
+                <h3>Chat with Lerato</h3>
+                <button id="chatbot-close" class="chatbot-close" aria-label="Close chat">&times;</button>
+            </div>
+            <div id="chatbot-messages" class="chatbot-messages" role="log" aria-live="polite" aria-label="Chat messages"></div>
+            <div class="chatbot-input-area">
+                <input type="text" id="chatbot-input" placeholder="Ask me about my skills, projects, or experience..." aria-label="Type your message">
+                <button id="chatbot-send" class="chatbot-send" aria-label="Send message">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2025 Portfolio. Built with passion and code.</p>
@@ -2001,6 +2300,237 @@
                 document.body.style.overflow = 'auto';
             }
         });
+
+        // Responsive Nav Toggle (Accessible)
+        (function() {
+            const navToggle = document.querySelector('.nav-toggle');
+            const nav = document.querySelector('.navbar');
+            const navMenu = document.getElementById('primary-navigation');
+
+            if (!navToggle || !nav || !navMenu) return;
+
+            // keep menu hidden to assistive tech by default on mobile
+            navMenu.setAttribute('aria-hidden', 'true');
+
+            navToggle.addEventListener('click', function(e) {
+                const expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', String(!expanded));
+                nav.classList.toggle('open');
+                navMenu.setAttribute('aria-hidden', String(expanded));
+            });
+
+            // Close menu on internal link click (mobile)
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (nav.classList.contains('open')) {
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        nav.classList.remove('open');
+                        navMenu.setAttribute('aria-hidden', 'true');
+                    }
+                });
+            });
+
+            // Close on Escape key if open
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && nav.classList.contains('open')) {
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    nav.classList.remove('open');
+                    navMenu.setAttribute('aria-hidden', 'true');
+                }
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', function(e) {
+                if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== navToggle) {
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    nav.classList.remove('open');
+                    navMenu.setAttribute('aria-hidden', 'true');
+                }
+            });
+        })();
+
+        // Back-to-top behavior
+        (function() {
+            const btn = document.getElementById('back-to-top');
+            if (!btn) return;
+            const showAt = 400;
+            function onScroll() {
+                if (window.scrollY > showAt) btn.classList.add('show'); else btn.classList.remove('show');
+            }
+            window.addEventListener('scroll', onScroll);
+            btn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                btn.blur();
+            });
+            // Show/hide on page load
+            onScroll();
+        })();
+
+        // Copy credentials functionality
+        function copyCreds(containerId, btn) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const username = container.querySelector('.u')?.textContent || '';
+            const password = container.querySelector('.p')?.textContent || '';
+            const text = `Username: ${username}\nPassword: ${password}`;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = originalText, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy credentials. Please copy manually.');
+            });
+        }
+
+        // Theme toggle functionality
+        (function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+
+            // Function to set theme
+            function setTheme(theme) {
+                html.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            }
+
+            // Function to get initial theme
+            function getInitialTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    return savedTheme;
+                }
+                // Check system preference
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                    return 'light';
+                }
+                return 'dark'; // default
+            }
+
+            // Set initial theme
+            setTheme(getInitialTheme());
+
+            // Toggle on click
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = html.getAttribute('data-theme') || 'dark';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                setTheme(newTheme);
+            });
+        })();
+
+        // Chatbot functionality
+        (function() {
+            const chatbotWidget = document.getElementById('chatbot-widget');
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const chatbotClose = document.getElementById('chatbot-close');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+            const chatbotInput = document.getElementById('chatbot-input');
+            const chatbotSend = document.getElementById('chatbot-send');
+
+            let isOpen = false;
+
+            // Toggle chatbot window
+            function toggleChatbot() {
+                isOpen = !isOpen;
+                chatbotWindow.style.display = isOpen ? 'flex' : 'none';
+                chatbotWidget.setAttribute('aria-hidden', String(!isOpen));
+                if (isOpen) {
+                    chatbotInput.focus();
+                }
+            }
+
+            // Add message to chat
+            function addMessage(content, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${type}`;
+                messageDiv.textContent = content;
+                chatbotMessages.appendChild(messageDiv);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+
+            // Get bot response
+            function getBotResponse(message) {
+                const msg = message.toLowerCase();
+
+                if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+                    return "Hello! I'm Lerato's portfolio assistant. How can I help you learn more about my skills, projects, or experience?";
+                }
+
+                if (msg.includes('skill') || msg.includes('skills')) {
+                    return "I specialize in full-stack development with JavaScript, Java, Python, React, Firebase, and more. I have experience in web development, mobile apps, databases, and AI integration. Check out my Skills section for details!";
+                }
+
+                if (msg.includes('project') || msg.includes('projects')) {
+                    return "I've worked on several exciting projects including QhaweLami (AI-powered GBVF safety platform), TerraBloom (smart farming app), and various websites. Click on any project card to learn more!";
+                }
+
+                if (msg.includes('experience') || msg.includes('work')) {
+                    return "I have experience as a Web Developer at Sinothando Child Welfare and GuyzInTech, plus tutoring coding to primary school students. I'm currently studying ICT Applications Development at Sol Plaatje University.";
+                }
+
+                if (msg.includes('education') || msg.includes('degree')) {
+                    return "I'm currently a Diploma in ICT Applications Development graduate at Sol Plaatje University (2023-2025). I also have my National Senior Certificate with a bachelors pass obtained at Rutasetjhaba Secondary School(2017-2021)..";
+                }
+
+                if (msg.includes('contact') || msg.includes('email') || msg.includes('phone')) {
+                    return "You can reach me at leratomalatji0614@gmail.com or call 068 196 0560. Feel free to use the contact form on this page!";
+                }
+
+                if (msg.includes('linkedin') || msg.includes('github')) {
+                    return "Find me on LinkedIn (linkedin.com/in/lerato-malatjie-ba253b20a) and GitHub (github.com/LeratoFikile). Links are in the navigation menu!";
+                }
+
+                if (msg.includes('certification') || msg.includes('certificate')) {
+                    return "I have certifications in Responsive Web Development (freeCodeCamp), IT for Business Success, Effective Business Websites, Social Media Marketing, and more. Check the Certifications section!";
+                }
+
+                if (msg.includes('achievement') || msg.includes('hackathon')) {
+                    return "I've won 1st place in the Geekulcha Annual Hackathon and Telkom Learn Hackathon, plus 3rd place in the SheLeads EmpowerHerAI Hackathon. I'm also a Telkom Future Makers participant!";
+                }
+
+                if (msg.includes('thank') || msg.includes('thanks')) {
+                    return "You're welcome! Feel free to ask me anything else about Lerato's portfolio.";
+                }
+
+                if (msg.includes('bye') || msg.includes('goodbye')) {
+                    return "Goodbye! Thanks for chatting. Don't forget to check out the projects section!";
+                }
+
+                return "I'm here to help you learn about my background, skills, and projects. Try asking about my experience, skills, or specific projects!";
+            }
+
+            // Send message
+            function sendMessage() {
+                const message = chatbotInput.value.trim();
+                if (!message) return;
+
+                addMessage(message, 'user');
+                chatbotInput.value = '';
+
+                // Simulate typing delay
+                setTimeout(() => {
+                    const response = getBotResponse(message);
+                    addMessage(response, 'bot');
+                }, 500 + Math.random() * 500); // Random delay between 500-1000ms
+            }
+
+            // Event listeners
+            chatbotToggle.addEventListener('click', toggleChatbot);
+            chatbotClose.addEventListener('click', toggleChatbot);
+            chatbotSend.addEventListener('click', sendMessage);
+
+            chatbotInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // Initial greeting
+            setTimeout(() => {
+                addMessage("👋 Hi there! I'm Lerato's portfolio assistant. Ask me about my skills, projects, or experience!", 'bot');
+            }, 1000);
+        })();
     </script>
 
     <!-- SKILLS MODAL: full categorized skills -->
@@ -2015,57 +2545,57 @@
                 <div class="skills-list">
                     <div class="skills-category">
                         <h3 style="color:#9ae6a0; margin-bottom:8px;">Programming & Tools</h3>
-                        <ul>
-                            <li>JavaScript (ES6+), TypeScript basics</li>
-                            <li>HTML5, CSS3 (Flexbox, Grid), SASS/SCSS</li>
-                            <li>React.js, component-based UI</li>
-                            <li>Node.js, npm, build tooling</li>
-                        </ul>
+                        <div class="skill-cards">
+                            <div class="skill-card">JavaScript (ES6+), TypeScript basics</div>
+                            <div class="skill-card">HTML5, CSS3 (Flexbox, Grid), SASS/SCSS</div>
+                            <div class="skill-card">React.js, component-based UI</div>
+                            <div class="skill-card">Node.js, npm, build tooling</div>
+                        </div>
                     </div>
 
                     <div class="skills-category">
                         <h3 style="color:#9ae6a0; margin-bottom:8px;">Web & Mobile</h3>
-                        <ul>
-                            <li>Responsive design, mobile-first</li>
-                            <li>Android development (Java)</li>
-                            <li>REST APIs, OAuth 2.0</li>
-                            <li>Firebase (Auth, Firestore, Functions)</li>
-                        </ul>
+                        <div class="skill-cards">
+                            <div class="skill-card">Responsive design, mobile-first</div>
+                            <div class="skill-card">Android development (Java)</div>
+                            <div class="skill-card">REST APIs, OAuth 2.0</div>
+                            <div class="skill-card">Firebase (Auth, Firestore, Functions)</div>
+                        </div>
                     </div>
 
                     <div class="skills-category">
                         <h3 style="color:#9ae6a0; margin-bottom:8px;">Databases</h3>
-                        <ul>
-                            <li>MySQL, SQL query optimization</li>
-                            <li>Database design, normalization, views</li>
-                            <li>Stored procedures and triggers</li>
-                        </ul>
+                        <div class="skill-cards">
+                            <div class="skill-card">MySQL, SQL query optimization</div>
+                            <div class="skill-card">Database design, normalization, views</div>
+                            <div class="skill-card">Stored procedures and triggers</div>
+                        </div>
                     </div>
 
                     <div class="skills-category">
                         <h3 style="color:#9ae6a0; margin-bottom:8px;">Cloud, Dev & Tools</h3>
-                        <ul>
-                            <li>Firebase ecosystem, Cloud Functions</li>
-                            <li>Git, GitHub workflows</li>
-                            <li>Testing & debugging workflows</li>
-                        </ul>
+                        <div class="skill-cards">
+                            <div class="skill-card">Firebase ecosystem, Cloud Functions</div>
+                            <div class="skill-card">Git, GitHub workflows</div>
+                            <div class="skill-card">Testing & debugging workflows</div>
+                        </div>
                     </div>
 
                     <div class="skills-category">
                         <h3 style="color:#9ae6a0; margin-bottom:8px;">Data & Analysis</h3>
-                        <ul>
-                            <li>Data analysis basics, visualization</li>
-                            <li>CSV processing, basic reporting queries</li>
-                        </ul>
+                        <div class="skill-cards">
+                            <div class="skill-card">Data analysis basics, visualization</div>
+                            <div class="skill-card">CSV processing, basic reporting queries</div>
+                        </div>
                     </div>
 
                     <div class="skills-category">
                         <h3 style="color:#9ae6a0; margin-bottom:8px;">Soft Skills</h3>
-                        <ul>
-                            <li>Team collaboration, mentoring</li>
-                            <li>Project planning and delivery</li>
-                            <li>Communication and documentation</li>
-                        </ul>
+                        <div class="skill-cards">
+                            <div class="skill-card">Team collaboration, mentoring</div>
+                            <div class="skill-card">Project planning and delivery</div>
+                            <div class="skill-card">Communication and documentation</div>
+                        </div>
                     </div>
                 </div>
             </div>
