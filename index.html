@@ -866,10 +866,104 @@
         /* SKILLS MODAL: full categorized skills */
         #skills-modal.modal { z-index: 2500; }
 
-        /* Small tweaks for skills modal list inside */
-        #skills-modal .skills-list { display: grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-        #skills-modal .skills-list ul { color: #bdbdbd; line-height:1.6; margin:0; padding-left:18px; }
-        #skills-modal .skills-category { background:#121212; padding:18px; border-radius:8px; border:1px solid rgba(108,183,44,0.06); }
+        /* Redesigned skills modal layout and badges */
+        #skills-modal .modal-content { padding: 32px; }
+        #skills-modal .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            align-items: start;
+        }
+
+        #skills-modal .skills-category {
+            background: linear-gradient(180deg, #0f0f0f 0%, #141414 100%);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(108,183,44,0.07);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        #skills-modal .skills-category:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(108,183,44,0.08);
+        }
+
+        #skills-modal .skills-category h4 {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+            color: #e6f7df;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, rgba(106,169,58,0.12), rgba(106,169,58,0.04));
+            color: #dff7d8;
+            padding: 8px 10px;
+            border-radius: 999px;
+            font-size: 13px;
+            margin: 6px 6px 0 0;
+            border: 1px solid rgba(108,183,44,0.08);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        .skill-badge:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(108,183,44,0.08);
+        }
+
+        /* small descriptions under category headings */
+        #skills-modal .skills-desc { color: #bfbfbf; font-size: 13px; margin-top:6px; line-height:1.5; }
+
+        /* responsive tweaks */
+        @media (max-width:600px) {
+            #skills-modal .modal-content { padding: 18px; }
+            .skill-badge { font-size: 12px; padding: 7px 10px; }
+        }
+
+        /* Skills section (overview) - professional two-column layout */
+        .skills-overview { padding: 56px 10%; }
+        .skills-overview .skills-grid-overview {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 36px;
+            align-items: center;
+        }
+
+        .skills-overview .skills-left h2 {
+            font-size: 44px;
+            color: var(--accent);
+            margin-bottom: 8px;
+            letter-spacing: -0.6px;
+        }
+
+        .skills-overview .underline {
+            width: 84px;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            border-radius: 4px;
+            margin-bottom: 14px;
+        }
+
+        .skills-overview .skills-sub { color: var(--muted); font-size: 15px; margin-bottom: 16px; }
+
+        .skills-overview .skills-right p { color: #d6d6d6; font-size: 15px; line-height: 1.7; margin-bottom: 18px; }
+
+        .skills-overview .skills-preview { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
+
+        .skills-overview .cta-group { display:flex; gap:12px; align-items:center; }
+
+        /* Compact badge variant for overview (reuses .skill-badge with slight tweak) */
+        .overview-badge { padding: 8px 12px; font-size: 13px; }
+
+        @media (max-width:880px) {
+            .skills-overview .skills-grid-overview { grid-template-columns: 1fr; gap: 20px; }
+            .skills-overview { padding: 40px 5%; }
+            .skills-overview .skills-left { text-align: left; }
+        }
 
         /* Chatbot Styles */
         .chatbot-widget {
@@ -1136,10 +1230,35 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
         </div>
     </section>
 
-    <section id="skills">
-        <h2>Skills</h2>
-        <p>As a full-stack ICT graduate, I possess a diverse skill set spanning web development, mobile applications, databases, and cloud technologies. My expertise includes JavaScript, Java, Python, SQL, and modern frameworks like React and Firebase.</p>
-        <button class="read-more-btn" onclick="openModal('skills-modal')">View All Skills</button>
+    <section id="skills" class="skills-overview">
+        <div class="skills-grid-overview">
+            <div class="skills-left">
+                <h2>Skills</h2>
+                <div class="underline" aria-hidden="true"></div>
+                <p class="skills-sub">Practical experience across frontend, backend, databases, and integrations — focused on building reliable, maintainable solutions.</p>
+            </div>
+
+            <div class="skills-right">
+                <p>Below is a snapshot of core competencies. Click "View All Skills" to expand the full list and see project examples that demonstrate each category.</p>
+
+                <div class="skills-preview" aria-hidden="true">
+                    <span class="skill-badge overview-badge">C#</span>
+                    <span class="skill-badge overview-badge">Java</span>
+                    <span class="skill-badge overview-badge">JavaScript (ES6+)</span>
+                    <span class="skill-badge overview-badge">Python</span>
+                    <span class="skill-badge overview-badge">React.js</span>
+                    <span class="skill-badge overview-badge">ASP.NET Core</span>
+                    <span class="skill-badge overview-badge">Microsoft SQL Server</span>
+                    <span class="skill-badge overview-badge">MySQL</span>
+                    <span class="skill-badge overview-badge">Firebase</span>
+                </div>
+
+                <div class="cta-group">
+                    <button class="read-more-btn" onclick="openModal('skills-modal')">View All Skills</button>
+                    
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="projects">
@@ -2034,10 +2153,7 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
               <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-8h3v8zm-1.5-9.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zM20 19h-3v-5.084c0-1.21-.87-2.416-2.24-2.416-1.22 0-1.76.868-1.76 2.416V19h-3v-8h3v1.09c.43-.68 1.92-1.09 2.9-1.09 2.08 0 4.1 1.24 4.1 4.89V19z"/></svg>
               <span class="sr-only">LinkedIn</span>
             </a>
-            <a href="https://github.com/LeratoFikile" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub" style="font-size:24px; display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:#333; color:white; text-decoration:none; transition:all 0.3s;">
-              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.3 3.438 9.8 8.205 11.387.6.111.82-.261.82-.58 0-.285-.01-1.04-.016-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.745.083-.73.083-.73 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.775.418-1.305.76-1.605-2.665-.303-5.467-1.332-5.467-5.93 0-1.31.469-2.381 1.235-3.221-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.289-1.552 3.295-1.23 3.295-1.23 .655 1.653.243 2.873.12 3.176 .77.84 1.233 1.911 1.233 3.221 0 4.61-2.807 5.625-5.479 5.922 .43.37.823 1.096.823 2.21 0 1.596-.015 2.883-.015 3.276 0 .32.216.694.825.576C20.565 21.796 24 17.295 24 12 24 5.37 18.627 0 12 0z"/></svg>
-              <span class="sr-only">GitHub</span>
-            </a>
+
           </div>
     </section>
 
@@ -2490,62 +2606,75 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
             </div>
 
             <div class="modal-body">
-                <div class="skills-list">
-                    <div class="skills-category">
-                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Programming & Tools</h3>
-                        <div class="skill-cards">
-                            <div class="skill-card">JavaScript (ES6+), TypeScript basics</div>
-                            <div class="skill-card">HTML5, CSS3 (Flexbox, Grid), SASS/SCSS</div>
-                            <div class="skill-card">React.js, component-based UI</div>
-                            <div class="skill-card">Node.js, npm, build tooling</div>
-                        </div>
-                    </div>
+                            <div class="skills-grid">
+                                <div class="skills-category">
+                                    <h4>Programming Languages</h4>
+                                    <div class="skills-desc">Core languages used for application and backend development.</div>
+                                    <div style="margin-top:12px;">
+                                        <span class="skill-badge">C#</span>
+                                        <span class="skill-badge">Java</span>
+                                        <span class="skill-badge">JavaScript</span>
+                                        <span class="skill-badge">Python</span>
+                                    </div>
+                                </div>
 
-                    <div class="skills-category">
-                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Web & Mobile</h3>
-                        <div class="skill-cards">
-                            <div class="skill-card">Responsive design, mobile-first</div>
-                            <div class="skill-card">Android development (Java)</div>
-                            <div class="skill-card">REST APIs, OAuth 2.0</div>
-                            <div class="skill-card">Firebase (Auth, Firestore, Functions)</div>
-                        </div>
-                    </div>
+                                <div class="skills-category">
+                                    <h4>Web & Application Development</h4>
+                                    <div class="skills-desc">Frontend and server-side frameworks and standards.</div>
+                                    <div style="margin-top:12px;">
+                                        <span class="skill-badge">HTML5</span>
+                                        <span class="skill-badge">CSS3</span>
+                                        <span class="skill-badge">JavaScript (ES6+)</span>
+                                        <span class="skill-badge">React.js (foundational)</span>
+                                        <span class="skill-badge">ASP.NET Core (foundational)</span>
+                                    </div>
+                                </div>
 
-                    <div class="skills-category">
-                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Databases</h3>
-                        <div class="skill-cards">
-                            <div class="skill-card">MySQL, SQL query optimization</div>
-                            <div class="skill-card">Database design, normalization, views</div>
-                            <div class="skill-card">Stored procedures and triggers</div>
-                        </div>
-                    </div>
+                                <div class="skills-category">
+                                    <h4>Databases & Backend</h4>
+                                    <div class="skills-desc">Relational and cloud database platforms used in projects.</div>
+                                    <div style="margin-top:12px;">
+                                        <span class="skill-badge">Microsoft SQL Server</span>
+                                        <span class="skill-badge">MySQL</span>
+                                        <span class="skill-badge">Firebase</span>
+                                    </div>
+                                </div>
 
-                    <div class="skills-category">
-                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Cloud, Dev & Tools</h3>
-                        <div class="skill-cards">
-                            <div class="skill-card">Firebase ecosystem, Cloud Functions</div>
-                            <div class="skill-card">Git, GitHub workflows</div>
-                            <div class="skill-card">Testing & debugging workflows</div>
-                        </div>
-                    </div>
+                                <div class="skills-category">
+                                    <h4>API & Integration</h4>
+                                    <div class="skills-desc">Service integrations and API consumption experience.</div>
+                                    <div style="margin-top:12px;">
+                                        <span class="skill-badge">REST APIs (consumption &amp; integration)</span>
+                                        <span class="skill-badge">Firebase services</span>
+                                    </div>
+                                </div>
 
-                    <div class="skills-category">
-                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Data & Analysis</h3>
-                        <div class="skill-cards">
-                            <div class="skill-card">Data analysis basics, visualization</div>
-                            <div class="skill-card">CSV processing, basic reporting queries</div>
-                        </div>
-                    </div>
+                                <div class="skills-category">
+                                    <h4>Tools & Version Control</h4>
+                                    <div class="skills-desc">Development tools and IDEs commonly used during projects.</div>
+                                    <div style="margin-top:12px;">
+                                        <span class="skill-badge">Git</span>
+                                        <span class="skill-badge">GitHub</span>
+                                        <span class="skill-badge">Visual Studio</span>
+                                        <span class="skill-badge">VS Code</span>
+                                        <span class="skill-badge">Android Studio</span>
+                                    </div>
+                                </div>
 
-                    <div class="skills-category">
-                        <h3 style="color:#9ae6a0; margin-bottom:8px;">Soft Skills</h3>
-                        <div class="skill-cards">
-                            <div class="skill-card">Team collaboration, mentoring</div>
-                            <div class="skill-card">Project planning and delivery</div>
-                            <div class="skill-card">Communication and documentation</div>
-                        </div>
-                    </div>
-                </div>
+                                <div class="skills-category">
+                                    <h4>Development Concepts</h4>
+                                    <div class="skills-desc">Foundational engineering and collaboration practices.</div>
+                                    <div style="margin-top:12px;">
+                                        <span class="skill-badge">Object-Oriented Programming (OOP)</span>
+                                        <span class="skill-badge">MVC</span>
+                                        <span class="skill-badge">Software Development Lifecycle (SDLC)</span>
+                                        <span class="skill-badge">Agile fundamentals</span>
+                                        <span class="skill-badge">Debugging &amp; Troubleshooting</span>
+                                        <span class="skill-badge">Code Reviews</span>
+                                        <span class="skill-badge">Responsive Design</span>
+                                    </div>
+                                </div>
+                            </div>
             </div>
         </div>
     </div>
