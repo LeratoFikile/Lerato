@@ -10,19 +10,27 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://your-portfolio-url.example/">
     <meta property="og:image" content="lerato.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%236cb72c'/%3E%3Ctext x='50' y='65' font-size='42' text-anchor='middle' fill='%23000' font-family='Segoe UI, Arial' %3ELM%3C/text%3E%3C/svg%3E" type="image/svg+xml">
     <style>
         :root {
             --bg: #0a0a0a;
             --card-bg: #1a1a1a;
             --text: #ffffff;
-            --muted: #888;
-            --accent: #6cb72c;
+            --muted: #9aa0a6;
+            --accent: #6cb72c; /* primary */
+            --accent-secondary: #9ae6a0; /* secondary */
             --accent-600: #7dc63e;
             --accent-rgb: 108,183,44;
             --nav-bg: rgba(0, 0, 0, 0.85);
             --radius: 8px;
             --border-alpha-10: rgba(108, 183, 44, 0.1);
+            --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            --font-serif: 'Merriweather', Georgia, 'Times New Roman', serif;
+            --fs-hero: 48px;
+            --fs-h2: 36px;
+            --fs-body: 16px;
+            --line-height: 1.6;
         }
 
 
@@ -33,10 +41,19 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-sans);
             background-color: var(--bg);
             color: var(--text);
+            line-height: var(--line-height);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+
+        h1, h2, h3, h4 { font-family: var(--font-serif); }
+
+        h1 { font-size: var(--fs-hero); line-height: 1.05; }
+        h2 { font-size: var(--fs-h2); }
+        p, li { font-size: var(--fs-body); }
 
         /* Skip link (keyboard accessible) */
         .skip-link {
@@ -510,21 +527,26 @@
             font-size: 14px;
         }
 
+        /* 12-column grid for project cards to improve alignment */
         .leadership-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(12, 1fr);
             gap: 20px;
         }
 
         .leadership-card {
-            background: linear-gradient(135deg, #151515 0%, #1a1a1a 100%);
-            padding: 24px;
+            background: linear-gradient(135deg, #151515 0%, #141414 100%);
+            padding: 18px;
             border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 1px solid rgba(108, 183, 44, 0.1);
+            text-align: left;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+            border: 1px solid rgba(var(--accent-rgb), 0.06);
             position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            grid-column: span 4; /* each card spans 4 cols on wide screens */
         }
 
         .leadership-card::after {
@@ -539,15 +561,34 @@
             transition: opacity 0.3s;
         }
 
-        .leadership-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 48px rgba(108, 183, 44, 0.2);
-            border-color: rgba(108, 183, 44, 0.3);
+        @media (prefers-reduced-motion: no-preference) {
+            .leadership-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(16, 24, 16, 0.5); border-color: rgba(var(--accent-rgb), 0.12); }
+            .leadership-card:hover::after { opacity: 1; }
         }
 
-        .leadership-card:hover::after {
-            opacity: 1;
+        @media (max-width: 1100px) {
+            .leadership-card { grid-column: span 6; }
         }
+
+        @media (max-width: 720px) {
+            .leadership-card { grid-column: span 12; }
+        }
+
+        /* Project metadata */
+        .project-role { color: var(--accent-secondary); font-weight: 600; font-size: 13px; margin-top: 4px; }
+
+        .project-tech { display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
+        .project-tech .tech-badge { padding:6px 10px; font-size:12px; border-radius:999px; }
+
+        /* Consistent CTAs: Read More (primary) + Watch Demo (secondary) */
+        .project-cta { display:flex; gap:10px; margin-top: auto; align-items:center; }
+        .project-cta .read-more-btn { background: var(--accent); color:#000; border: none; padding:8px 12px; border-radius:8px; font-weight:600; }
+        .project-cta .watch-demo-btn { background: transparent; color: var(--accent); border: 1px solid rgba(var(--accent-rgb),0.12); padding:8px 12px; border-radius:8px; }
+
+        /* Compact tech-badge hover micro-animation (respect reduced motion) */
+        .tech-badge { transition: transform 0.12s ease, box-shadow 0.12s ease; }
+        @media (prefers-reduced-motion: reduce) { .tech-badge { transition: none; } }
+        .tech-badge:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(var(--accent-rgb), 0.08); }
 
         .contact-form {
             max-width: 600px;
@@ -1180,14 +1221,7 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
     </p>
     <a href="#contact" class="cta-button">Let's get started ›</a>
 
-    <div class="worked-with">
-      <h3>Worked with</h3>
-      <div class="logos">
-        <div class="logo-item">Sinothando Child Welfare</div>
-        <div class="logo-item">GuyzInTech</div>
-        <div class="logo-item">Sol Plaatje University</div>
-      </div>
-    </div>
+
   </div>
 
   <div class="hero-image">
@@ -1265,16 +1299,24 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
         <h2>Featured Projects</h2>
 
         <div class="leadership-grid">
-            <!-- QhaweLami Project -->
+            <!-- Sinothando Project -->
             <div class="leadership-card">
                 <div class="project-image">
-                    <img src="qhawelami.png" alt="QhaweLami Project Preview">
+                    <img src="sinothando.jpg" alt="Sinothando Child Welfare Website">
                 </div>
-                <h3>QhaweLami: My Hero</h3>
-                <p>AI-powered gamified web app addressing GBVF issues. Integrated Gemini AI model with interactive features to raise awareness and provide resources.</p>
-                <p><strong>Tech:</strong> HTML/CSS, Android Studio, Java, AI Gemini, Node.js, JavaScript, Firebase, SMS API</p>
-                <a href="https://qhawegbv.netlify.app/" class="project-link" target="_blank">View Project →</a>
-                <button class="read-more-btn" onclick="openModal('qhawelami-modal')">Read More</button>
+                <h3>Sinothando Child Welfare Website</h3>
+                <p class="project-role">Role: Sole Developer</p>
+                <p>Developed and maintained user-friendly website to support community initiatives and enhance organizational outreach.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">HTML5</span>
+                    <span class="tech-badge">CSS3</span>
+                    <span class="tech-badge">JavaScript</span>
+                </div>
+                <div class="project-cta">
+                    <a href="https://sinothandowelfare.netlify.app/" class="project-link" target="_blank">View Project →</a>
+                    <button class="read-more-btn" onclick="openModal('sinothando-modal')">Read More</button>
+
+                </div>
             </div>
 
             <!-- TerraBloom Project -->
@@ -1283,32 +1325,19 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
                     <img src="terra.jpg" alt="TerraBloom Project Preview">
                 </div>
                 <h3>TerraBloom: Smart Farming Platform</h3>
+                <p class="project-role">Role: Backend & IoT Integration</p>
                 <p>Innovative IoT-connected app empowering farmers with real-time data and modern agricultural technology.</p>
-                <p><strong>Tech:</strong> Android (Java), Material Design 3, Firebase, OpenWeatherMap API, Commodity APIs, Google Maps, OAuth 2.0, REST APIs</p>
-                <a href="https://terrabloom.netlify.app/" class="project-link" target="_blank">View Project →</a>
-                <button class="read-more-btn" onclick="openModal('terrabloom-modal')">Read More</button>
-            </div>
-
-            <!-- Student Support Database Project -->
-            <div class="leadership-card">
-                <div class="project-image">
-                    <img src="sql.jpg" alt="Student Support Database">
+                <div class="project-tech">
+                    <span class="tech-badge">Android</span>
+                    <span class="tech-badge">Firebase</span>
+                    <span class="tech-badge">OpenWeatherMap</span>
+                    <span class="tech-badge">Material</span>
                 </div>
-                <h3>Student Support Database</h3>
-                <p>Developed MySQL database to manage student information, support requests, and attendance. Implemented stored procedures, views, and automated tasks for data integrity.</p>
-                <p><strong>Tech:</strong> MySQL, SQL, Python, VS Code</p>
-                <button class="read-more-btn" onclick="openModal('database-modal')">Read More</button>
-            </div>
+                <div class="project-cta">
+                    <a href="https://terrabloom.netlify.app/" class="project-link" target="_blank">View Project →</a>
+                    <button class="read-more-btn" onclick="openModal('terrabloom-modal')">Read More</button>
 
-            <!-- Sinothando Project -->
-            <div class="leadership-card">
-                <div class="project-image">
-                    <img src="sinothando.jpg" alt="Sinothando Child Welfare Website">
                 </div>
-                <h3>Sinothando Child Welfare Website</h3>
-                <p>Developed and maintained user-friendly website to support community initiatives and enhance organizational outreach.</p>
-                <a href="https://sinothandowelfare.netlify.app/" class="project-link" target="_blank">View Project →</a>
-                <button class="read-more-btn" onclick="openModal('sinothando-modal')">Read More</button>
             </div>
 
             <!-- GuyzInTech Project -->
@@ -1317,9 +1346,58 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
                     <img src="guyz.png" alt="GuyzInTech Website">
                 </div>
                 <h3>GuyzInTech Website</h3>
+                <p class="project-role">Role: Sole Developer</p>
                 <p>Created web solutions to enhance online presence and functionality for a tech startup.</p>
-                <a href="https://guyzintech.netlify.app/" class="project-link" target="_blank">View Project →</a>
-                <button class="read-more-btn" onclick="openModal('guyzintech-modal')">Read More</button>
+                <div class="project-tech">
+                    <span class="tech-badge">React.js</span>
+                    <span class="tech-badge">Tailwind CSS</span>
+                    <span class="tech-badge">JavaScript</span>
+                </div>
+                <div class="project-cta">
+                    <a href="https://guyzintech.netlify.app/" class="project-link" target="_blank">View Project →</a>
+                    <button class="read-more-btn" onclick="openModal('guyzintech-modal')">Read More</button>
+
+                </div>
+            </div>
+
+            <!-- QhaweLami Project -->
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="qhawelami.png" alt="QhaweLami Project Preview">
+                </div>
+                <h3>QhaweLami: My Hero</h3>
+                <p class="project-role">Role: Backend Lead (Hackathon Team)</p>
+                <p>AI-powered gamified web app addressing GBVF issues. Integrated Gemini AI model with interactive features to raise awareness and provide resources.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">HTML5</span>
+                    <span class="tech-badge">Android</span>
+                    <span class="tech-badge">Java</span>
+                    <span class="tech-badge">Firebase</span>
+                    <span class="tech-badge">Node.js</span>
+                </div>
+                <div class="project-cta">
+                    <a href="https://qhawegbv.netlify.app/" class="project-link" target="_blank">View Project →</a>
+                    <button class="read-more-btn" onclick="openModal('qhawelami-modal')">Read More</button>
+
+                </div>
+            </div>
+
+            <!-- Student Support Database Project -->
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="sql.jpg" alt="Student Support Database">
+                </div>
+                <h3>Student Support Database</h3>
+                <p class="project-role">Role: Database Designer / Backend</p>
+                <p>Developed MySQL database to manage student information, support requests, and attendance. Implemented stored procedures, views, and automated tasks for data integrity.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">MySQL</span>
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">SQL</span>
+                </div>
+                <div class="project-cta">
+                    <button class="read-more-btn" onclick="openModal('database-modal')">Read More</button>
+                </div>
             </div>
         </div>
     </section>
@@ -1328,109 +1406,123 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
     <div id="qhawelami-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>QhaweLami: My Hero - GBVF Safety Platform</h2>
+                <h2>QhaweLami: My Hero</h2>
                 <button class="close-modal" onclick="closeModal('qhawelami-modal')">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="modal-section">
+                    <h3>AI-Powered GBVF Safety Platform</h3>
+                    <p style="color:#bdbdbd;">🏆 Winner – EmpowerHerAI Hackathon (August 2025)</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>🔹 My Role &amp; Ownership</h3>
+                    <p style="color:#bdbdbd;"><strong>Role:</strong> Junior Full-Stack Developer (Backend Lead – Team Project)<br>
+                    <strong>Team Context:</strong> Hackathon-winning team project delivered under tight time constraints.</p>
+
+                    <p style="color:#bdbdbd;"><strong>My Primary Ownership:</strong></p>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Owned backend development and database design</li>
+                        <li>Designed and managed Firestore data models</li>
+                        <li>Implemented secure authentication and authorization workflows</li>
+                        <li>Built frontend–backend communication for the community forum</li>
+                        <li>Developed the Wall of Honour feature end-to-end</li>
+                        <li>Implemented interactive candle-lighting functionality using JavaScript</li>
+                        <li>Contributed to backend feature development across the platform</li>
+                        <li>Handled security considerations for registration and login</li>
+                    </ul>
+                    <p style="color:#bdbdbd; margin-top:8px;">This project demonstrates my ability to take end-to-end responsibility for critical system components while collaborating effectively within a team.</p>
+                </div>
+
+
+
+                <div class="modal-section">
                     <h3>Project Overview</h3>
-                    <p>QhaweLami (meaning "My Hero" in isiZulu) is an AI-powered gamified web and mobile application designed to combat Gender-Based Violence and Femicide (GBVF) in South Africa. The platform combines education, community support, and life-saving safety features into an engaging, accessible digital experience.</p>
+                    <p style="color:#bdbdbd;">QhaweLami (“My Hero” in isiZulu) is a gamified web and mobile platform designed to combat Gender-Based Violence and Femicide (GBVF) in South Africa through education, community engagement, and digital safety tools.</p>
                 </div>
 
                 <div class="modal-section">
                     <h3>Problem Statement</h3>
-                    <p>Gender-based violence remains a critical crisis in South Africa, with many individuals lacking access to education, resources, support networks, and immediate emergency response tools when in danger.</p>
+                    <p style="color:#bdbdbd;">Many individuals affected by GBVF lack access to immediate safety resources, secure anonymous digital support spaces, and educational tools tailored to South African contexts.</p>
                 </div>
 
                 <div class="modal-section">
                     <h3>Solution</h3>
-                    <p>An immersive platform that transforms GBVF education into an engaging journey while providing immediate access to safety features, AI-powered support, community connection, and innovative wearable emergency technology.</p>
+                    <p style="color:#bdbdbd;">A platform that combines gamified educational content, a secure moderated community forum, AI-powered guidance, and privacy-first authentication and data handling.</p>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Key Features</h3>
-                    <ul style="color: #bdbdbd; line-height: 1.8;">
-                        <li><strong>🎮 Gamified Learning System</strong>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li>Progressive challenges covering GBVF awareness to intervention strategies</li>
-                                <li>Story-driven missions with realistic scenarios</li>
-                                <li>Achievement badges, points, and skill trees</li>
-                                <li>Daily missions and leaderboards for sustained engagement</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 12px;"><strong>🤖 AI-Powered Support (Gemini Integration)</strong>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li>24/7 intelligent chatbot with empathetic responses</li>
-                                <li>Crisis detection and emergency resource recommendations</li>
-                                <li>Multilingual support across South African languages</li>
-                                <li>Context-aware guidance on laws, rights, and support systems</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 12px;"><strong>💬 Rhivhoningo Community Forum</strong>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li>Safe space for survivor stories and peer support</li>
-                                <li>Anonymous and verified posting options</li>
-                                <li>AI-assisted moderation with zero-tolerance policies</li>
-                                <li>Resource sharing and advocacy coordination</li>
-                                <li>Private messaging with safety filters</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 12px;"><strong>🆘 QhaweBand: Revolutionary Wearable Safety Device</strong>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li><strong>Interactive Design Platform:</strong> 3D design studio for customizable wearable panic button with multiple form factors (wristband, pendant, keychain, ring)</li>
-                                <li><strong>Dual Panic Button System:</strong> Physical QhaweBand and digital in-app activation with Bluetooth GPS tracking</li>
-                                <li><strong>Real-Time Emergency Response:</strong> Automatically transmits GPS coordinates, timestamp, audio/photo evidence to emergency contacts via SMS, push, email, WhatsApp</li>
-                                <li><strong>Smart Contact Management:</strong> Multi-tier emergency contacts with intelligent routing and escalation protocols</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 12px;"><strong>📱 SMS Integration for Universal Access</strong>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li>Emergency alerts via text message</li>
-                                <li>Keyword-based resource locator</li>
-                                <li>Safety check-in system</li>
-                                <li>Works without internet connectivity</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 12px;"><strong>🔐 Privacy-First Security</strong>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li>End-to-end encrypted communications</li>
-                                <li>Anonymous usage options</li>
-                                <li>Emergency exit button with disguised interface</li>
-                                <li>POPIA compliance (South African data protection)</li>
-                                <li>Duress codes and geofencing alerts</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 12px;"><strong>🎨 Accessibility Features</strong>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li>Full dark mode for discreet nighttime access</li>
-                                <li>High contrast and color-blind friendly options</li>
-                                <li>Adjustable text sizes and reduced motion</li>
-                                <li>Mobile-responsive design with offline capabilities</li>
-                            </ul>
-                        </li>
+                    <h3>🔹 Key Technical Contributions</h3>
+                    <h4 style="color:#9ae6a0; margin-top:8px;">🔐 Backend &amp; Database Ownership</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Designed Firestore collections and data relationships</li>
+                        <li>Implemented secure read/write rules</li>
+                        <li>Managed real-time data synchronization</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">🔒 Authentication &amp; Security</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Implemented Firebase Authentication</li>
+                        <li>Secured registration and login flows</li>
+                        <li>Applied validation and basic access control rules</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">💬 Community Forum (Frontend–Backend Integration)</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Built API logic connecting frontend UI to backend services</li>
+                        <li>Handled real-time message flow and moderation-ready structure</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">🕯 Wall of Honour (Independent Feature)</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Designed and implemented the Wall of Honour feature independently</li>
+                        <li>Built interactive candle-lighting logic using vanilla JavaScript</li>
+                        <li>Ensured state persistence and responsive UI behavior</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">🧪 Testing &amp; Quality Assurance</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Debugged backend and frontend integration issues</li>
+                        <li>Supported team testing and final demo preparation</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">🧩 Extended Team Concepts (Prototype Level)</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Wearable safety device (QhaweBand) concept</li>
+                        <li>Emergency alert workflows and notification strategies</li>
                     </ul>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Technical Stack</h3>
+                    <h3>🛠 Technical Stack</h3>
                     <div class="tech-stack">
                         <span class="tech-badge">HTML5</span>
                         <span class="tech-badge">CSS3</span>
                         <span class="tech-badge">JavaScript</span>
-                        <span class="tech-badge">Three.js</span>
-                        <span class="tech-badge">Node.js</span>
                         <span class="tech-badge">Firebase Firestore</span>
                         <span class="tech-badge">Firebase Authentication</span>
-                        <span class="tech-badge">Firebase Cloud Functions</span>
                         <span class="tech-badge">Google Gemini API</span>
-                        <span class="tech-badge">Android (Java)</span>
-                        <span class="tech-badge">Bluetooth Low Energy</span>
-                        <span class="tech-badge">SMS API</span>
-                        <span class="tech-badge">Push Notifications</span>
-                        <span class="tech-badge">WhatsApp Business API</span>
-                        <span class="tech-badge">SendGrid Email</span>
-                        <span class="tech-badge">Cloud IoT Core</span>
+                        <span class="tech-badge">Git</span>
+                        <span class="tech-badge">GitHub</span>
+                        <span class="tech-badge">Netlify</span>
                     </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>🔹 Live Demo Access</h3>
+    <div id="qhawe-cred" style="background:#0f0f0f;padding:12px;border-radius:8px;border-left:4px solid var(--accent);color:#bdbdbd;font-family:monospace;">
+    <p style="margin:0 0 6px 0;"><strong>Email:</strong> <span class="u">leratomalatji0614@gmail.com</span></p>
+    <p style="margin:0;"><strong>Password:</strong> <span class="p">123456789</span></p>
+  </div>
+  <div style="margin-top:8px;">
+    <button class="read-more-btn" type="button" onclick="copyCreds('qhawe-cred', this)">Copy Credentials</button>
+    <span style="color:#888;margin-left:10px;font-size:14px;">Demo account only — no real personal data stored.</span>
+  </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Impact &amp; Outcome</h3>
+                    <p style="color:#bdbdbd;">🏆 Winner – EmpowerHerAI Hackathon. Backend ownership recognised during judging. Delivered a stable, functional MVP within hackathon constraints and praised for innovation, technical depth, and relevance.</p>
                 </div>
 
                 <div class="modal-section">
@@ -1439,18 +1531,6 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
 <iframe src="https://www.youtube.com/embed/aEF_tMXL-MQ?si=_5CV6863rjaEDD9e" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
-
-                <div class="modal-section">
-  <h3>Test It Yourself</h3>
-    <div id="qhawe-cred" style="background:#0f0f0f;padding:12px;border-radius:8px;border-left:4px solid var(--accent);color:#bdbdbd;font-family:monospace;">
-    <p style="margin:0 0 6px 0;"><strong>Username:</strong> <span class="u">leratomalatji0614@gmail.com</span></p>
-    <p style="margin:0;"><strong>Password:</strong> <span class="p">123456789</span></p>
-  </div>
-  <div style="margin-top:8px;">
-    <button class="read-more-btn" type="button" onclick="copyCreds('qhawe-cred', this)">Copy Credentials</button>
-    <span style="color:#888;margin-left:10px;font-size:14px;">Use these demo credentials to explore the app (demo account only).</span>
-  </div>
-</div>
 
                 <div class="modal-section">
                     <h3>Project Gallery</h3>
@@ -1473,41 +1553,6 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
                     </div>
                 </div>
 
-                <div class="modal-section">
-                    <h3>Innovation Highlights</h3>
-                    <p><strong>QhaweBand Wearable Innovation:</strong> A game-changing physical panic button device that works independently of mobile connectivity, providing immediate emergency response with GPS tracking and evidence collection.</p>
-                    <p><strong>Dual Interface Emergency System:</strong> Both wearable and app-based activation ensure users have multiple pathways to get help, catering to different scenarios and accessibility needs.</p>
-                    <p><strong>AI-Powered Empathy:</strong> Google Gemini AI integration enables the chatbot to understand crisis situations contextually and provide appropriate, sensitive guidance in real-time.</p>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Architecture & Infrastructure</h3>
-                    <p>The platform uses a microservices architecture with Firebase as the core backend, enabling real-time data synchronization across web, mobile, and IoT devices. Cloud Functions handle emergency routing logic, ensuring minimal latency in critical situations.</p>
-                    <p><strong>Device Management:</strong> Cloud IoT Core manages QhaweBand devices at scale, handling firmware updates, location tracking, and telemetry collection.</p>
-                    <p><strong>Multi-Channel Communication:</strong> SMS, push notifications, email, and WhatsApp integration ensures emergency alerts reach contacts through their preferred channels.</p>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Security & Privacy</h3>
-                    <p>End-to-end encryption protects all user communications. Anonymous usage options allow users to access resources without registration. POPIA compliance ensures full adherence to South African data protection laws. Emergency exit buttons provide discreet access for users in unsafe situations.</p>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Impact & Vision</h3>
-                    <p>QhaweLami empowers individuals to become heroes in the fight against GBVF through education, community support, and cutting-edge safety technology. The platform provides both preventive education and immediate emergency response, creating a comprehensive ecosystem for survivor support and violence prevention.</p>
-                    <p><strong>Creating safer communities through technology, education, and solidarity.</strong></p>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Target Users</h3>
-                    <ul style="color: #bdbdbd; line-height: 1.8;">
-                        <li>👥 GBVF survivors and at-risk individuals</li>
-                        <li>🤝 Allies, advocates, and community leaders</li>
-                        <li>🎓 Educators and youth seeking awareness</li>
-                        <li>👮 High-risk professionals requiring safety tools</li>
-                    </ul>
-                </div>
-
             </div>
         </div>
     </div>
@@ -1516,82 +1561,133 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
     <div id="terrabloom-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>TerraBloom: Smart Farming Platform</h2>
+                <h2>TerraBloom</h2>
                 <button class="close-modal" onclick="closeModal('terrabloom-modal')">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="modal-section">
-                    <h3>Project Overview</h3>
-                    <p>TerraBloom is an innovative IoT-connected Android application that empowers farmers with real-time data and modern agricultural technology. The platform bridges traditional farming practices with digital agriculture, helping farmers make data-driven decisions to increase yields and reduce losses.</p>
+                    <h3>IoT-Connected Smart Agriculture Platform</h3>
+                    <p style="color:#bdbdbd;">🎓 Final Year Team Project – ICT (Applications Development)</p>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Problem Statement</h3>
-                    <p>Many farmers lack access to timely, accurate information about weather, soil conditions, and market prices, which are crucial for making informed planting and selling decisions.</p>
+                    <h3>🔹 My Role &amp; Academic Context</h3>
+                    <p style="color:#bdbdbd;"><strong>Role:</strong> Junior Software Developer (Backend &amp; IoT Integration)<br>
+                    <strong>Project Type:</strong> Final-year, team-based academic project<br>
+                    <strong>Outcome:</strong> Successfully completed and passed as part of the Project module</p>
+
+                    <p style="color:#bdbdbd;"><strong>My Key Responsibilities:</strong></p>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Contributed to Firebase database design and implementation</li>
+                        <li>Built the community forum backend supporting real-time discussions</li>
+                        <li>Co-developed the Android IoT component using Java and Android Studio</li>
+                        <li>Implemented data flow from mobile app to Firebase</li>
+                        <li>Ensured soil sensor data is stored securely and displayed on the web dashboard</li>
+                        <li>Integrated backend services to expose data to authenticated users</li>
+                        <li>Collaborated with team members on system integration and testing</li>
+                    </ul>
+                    <p style="color:#bdbdbd; margin-top:8px;">This project demonstrates my ability to apply academic knowledge to a working, end-to-end system within a team environment.</p>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Solution</h3>
-                    <p>TerraBloom provides a comprehensive solution by integrating IoT sensors for real-time data collection, a mobile app for data access and analysis,
-                                <li>Direct buyer connections</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 12px;"><strong>🤖 IoT Integration (Mock Demo)</strong>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li>Simulated soil sensors (moisture, temperature, pH, nutrients)</li>
-                                <li>Environmental monitoring (air quality, rainfall, wind)</li>
-                                <li>Automated irrigation control visualization</li>
-                                <li>Seamless pathway to real hardware deployment</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 12px;"><strong>📊 Smart Farm Management</strong>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li>AI-powered yield predictions</li>
-                                <li>Crop planning calendars and budget tools</li>
-                                <li>Disease and pest risk assessments</li>
-                                <li>Digital record keeping and analytics</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 12px;"><strong>💬 Community Forum</strong>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li>Peer-to-peer knowledge sharing</li>
-                                <li>Expert agricultural guidance</li>
-                                <li>Regional farming discussions</li>
-                                <li>Marketplace for equipment and produce</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 12px;"><strong>🔔 Intelligent Alerts</strong>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li>Critical weather warnings (frost, storms, drought)</li>
-                                <li>Pest outbreak notifications</li>
-                                <li>Optimal planting and harvest reminders</li>
-                                <li>Market price movement alerts</li>
-                            </ul>
-                        </li>
+                    <h3>🔹 Recruiter TL;DR (10-Second Scan)</h3>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Final-year project combining Android, IoT simulation, and Firebase</li>
+                        <li>Backend &amp; database contributor with ownership of key system components</li>
+                        <li>Built real-time data synchronization from mobile → cloud → web</li>
+                        <li>Successfully delivered and passed as part of degree requirements</li>
                     </ul>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Technical Stack</h3>
+                    <h3>Project Overview</h3>
+                    <p style="color:#bdbdbd;">TerraBloom is an IoT-connected Android and web platform designed to help farmers make data-driven decisions using real-time environmental and soil data. The system demonstrates how modern digital agriculture tools can improve productivity and reduce crop loss.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Problem Statement</h3>
+                    <p style="color:#bdbdbd;">Farmers often lack timely access to soil and weather data, early warnings for environmental risks, and centralized digital tools for farm planning and monitoring.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Solution</h3>
+                    <p style="color:#bdbdbd;">A platform that integrates simulated IoT soil and environmental sensors, an Android application for data collection, a Firebase-backed cloud system for real-time processing, and a web dashboard for visualization and insights.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>🔹 Key Technical Contributions</h3>
+                    <h4 style="color:#9ae6a0; margin-top:8px;">🌐 Backend &amp; Database Development</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Contributed to Firebase Realtime Database structure and data modeling</li>
+                        <li>Implemented data persistence for soil sensor readings, environmental data, and community forum content</li>
+                        <li>Applied security rules to ensure user-specific data access</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">📱 Android &amp; IoT Integration</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Co-developed Android application using Java and Android Studio</li>
+                        <li>Implemented simulated IoT sensor scanning (soil moisture, temperature, pH)</li>
+                        <li>Ensured sensor data is captured on mobile, stored in Firebase, and synced to the web dashboard in real time</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">💬 Community Forum Backend</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Built backend logic enabling peer-to-peer discussions and real-time updates across users</li>
+                        <li>Ensured reliable frontend-backend communication</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">🔐 Authentication &amp; Security</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Integrated Firebase Authentication</li>
+                        <li>Supported OAuth 2.0 flows for secure access</li>
+                        <li>Ensured HTTPS-only data transmission</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>🛠 Technical Stack</h3>
                     <div class="tech-stack">
                         <span class="tech-badge">Android (Java)</span>
-                        <span class="tech-badge">Material Design 3</span>
-                        <span class="tech-badge">Firebase Realtime DB</span>
-                        <span class="tech-badge">Firebase Cloud Functions</span>
+                        <span class="tech-badge">Android Studio</span>
+                        <span class="tech-badge">Firebase Realtime Database</span>
+                        <span class="tech-badge">Cloud Functions</span>
                         <span class="tech-badge">Firebase Authentication</span>
                         <span class="tech-badge">OpenWeatherMap API</span>
                         <span class="tech-badge">Commodity APIs</span>
-                        <span class="tech-badge">Google Maps</span>
-                        <span class="tech-badge">OAuth 2.0</span>
-                        <span class="tech-badge">REST APIs</span>
+                        <span class="tech-badge">MVC</span>
+                        <span class="tech-badge">Material Design 3</span>
                     </div>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Security & Infrastructure</h3>
-                    <p><strong>Authentication:</strong> OAuth 2.0 with Firebase Authentication for secure user management and session handling.</p>
-                    <p><strong>Data Protection:</strong> Encrypted data storage at rest and HTTPS-only communication for all data transmission.</p>
-                    <p><strong>Database:</strong> Firebase Realtime Database with security rules ensuring farmers can only access their own farm data and community content.</p>
+                    <h3>🔹 Live Demo Access</h3>
+    <div id="terra-cred" style="background:#0f0f0f;padding:12px;border-radius:8px;border-left:4px solid var(--accent);color:#bdbdbd;font-family:monospace;">
+    <p style="margin:0 0 6px 0;"><strong>Email:</strong> <span class="u">leratomalatjie0614@gmail.com</span></p>
+    <p style="margin:0;"><strong>Password:</strong> <span class="p">123456789</span></p>
+  </div>
+  <div style="margin-top:8px;">
+    <button class="read-more-btn" type="button" onclick="copyCreds('terra-cred', this)">Copy Credentials</button>
+    <span style="color:#888;margin-left:10px;font-size:14px;">Demo account only — no real personal data stored.</span>
+  </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Architecture &amp; Design</h3>
+                    <p style="color:#bdbdbd;">The system follows an MVC architecture, separating UI, business logic, and data access. Firebase enables real-time synchronization across devices, ensuring farmers always receive up-to-date data.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Impact &amp; Learning Outcomes</h3>
+                    <p style="color:#bdbdbd;">Successfully delivered a functional final-year project. Applied classroom knowledge to a real-world-style system and gained hands-on experience with mobile-cloud integration, IoT data pipelines, real-time databases, and team-based software development.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Target Users</h3>
+                    <ul style="color: #bdbdbd; line-height: 1.8;">
+                        <li>Smallholder and commercial farmers</li>
+                        <li>Agricultural cooperatives</li>
+                        <li>Rural farming communities</li>
+                    </ul>
                 </div>
 
                 <div class="modal-section">
@@ -1600,18 +1696,6 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
 <iframe src="https://www.youtube.com/embed/Ry_aJ0OK5zI?si=BaRB5SEwAxeOi9l1" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
-
-                <div class="modal-section">
-  <h3>Test It Yourself</h3>
-    <div id="terra-cred" style="background:#0f0f0f;padding:12px;border-radius:8px;border-left:4px solid var(--accent);color:#bdbdbd;font-family:monospace;">
-    <p style="margin:0 0 6px 0;"><strong>Username:</strong> <span class="u">leratomalatjie0614@gmail.com</span></p>
-    <p style="margin:0;"><strong>Password:</strong> <span class="p">123456789</span></p>
-  </div>
-  <div style="margin-top:8px;">
-    <button class="read-more-btn" type="button" onclick="copyCreds('terra-cred', this)">Copy Credentials</button>
-    <span style="color:#888;margin-left:10px;font-size:14px;">Use these demo credentials to explore the app (demo account only).</span>
-  </div>
-</div>
 
                 <div class="modal-section">
                     <h3>Project Gallery</h3>
@@ -1632,28 +1716,6 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
                             <img src="terra5.png" alt="Farm Management Tools">
                         </div>
                     </div>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Architecture & Design</h3>
-                    <p>The application follows an MVC (Model-View-Controller) architecture pattern with clean separation between UI layer (Material Design 3 components), business logic, and data access layers. The frontend communicates with Firebase backend through well-defined API contracts, enabling seamless scaling and feature additions.</p>
-                    <p><strong>Real-Time Synchronization:</strong> Firebase Realtime Database enables instant updates across all user devices, ensuring farmers always have the latest information for critical decision-making.</p>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Impact & Vision</h3>
-                    <p>TerraBloom democratizes agricultural technology for farmers regardless of location, farm size, or technical expertise. The mock IoT implementation allows stakeholders to experience the complete platform capabilities before hardware deployment, making advanced farming technology accessible and affordable.</p>
-                    <p><strong>Transforming farming from guesswork into strategic, data-driven agriculture.</strong></p>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Target Users</h3>
-                    <ul style="color: #bdbdbd; line-height: 1.8;">
-                        <li>👨‍🌾 Smallholder and commercial farmers</li>
-                        <li>🤝 Agricultural cooperatives</li>
-                        <li>🌾 Rural farming communities</li>
-                        <li>💼 AgriTech investors and stakeholders</li>
-                    </ul>
                 </div>
 
             </div>
@@ -1731,60 +1793,95 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
     <div id="sinothando-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Sinothando Child Welfare Website</h2>
+                <h2>Sinothando Child Welfare Platform</h2>
                 <button class="close-modal" onclick="closeModal('sinothando-modal')">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="modal-section">
-                    <h3>Project Overview</h3>
-                    <p>Sinothando means "we have love" in isiZulu, and this digital platform embodies that mission. This comprehensive website for a child welfare organization serves as a multifunctional hub that connects stakeholders, mobilizes resources, tells impactful stories, and makes it effortless for donors, volunteers, and families to engage with life-changing child welfare programs.</p>
-                    <p>The platform demonstrates how thoughtful digital design can amplify social impact, creating a transparent, accessible system that mobilizes communities to protect and nurture vulnerable children.</p>
+                    <h3>Full-Stack Web Application for a Local NGO (Kimberley)</h3>
+                    <p style="color:#bdbdbd;">🔹 My Role &amp; Ownership</p>
+                    <p style="color:#bdbdbd;"><strong>Role:</strong> Junior Software Developer (Sole Developer)<br>
+                    <strong>Project Type:</strong> Real-world client project for a local NGO<br>
+                    <strong>Location:</strong> Kimberley, South Africa</p>
+
+                    <p style="color:#bdbdbd;"><strong>Ownership:</strong> I designed, developed, deployed, and continue to maintain this platform independently, working directly with the NGO to understand requirements and deliver a production-ready solution.</p>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Challenge</h3>
-                    <p>The organization needed to transform its digital presence from a static informational site into a comprehensive hub that could effectively manage volunteer recruitment, donation processing, storytelling, and community engagement—all while building trust and demonstrating real-time impact to stakeholders.</p>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Solution</h3>
-                    <p>Designed and developed a mobile-responsive, accessible website featuring dynamic functionality, secure payment integration, and community engagement tools. The platform combines beautiful design with powerful backend systems to support the organization's mission-critical operations.</p>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Key Features</h3>
-                    <ul style="color: #bdbdbd; line-height: 1.8;">
-                        <li><strong>Dynamic Landing Page</strong> - Real-time impact counters, video storytelling, and program showcases</li>
-                        <li><strong>Volunteer Management Portal</strong> - Online applications, shift scheduling, and volunteer hour tracking</li>
-                        <li><strong>Secure Donation System</strong> - One-time and recurring gifts with multiple payment methods and campaign-specific giving</li>
-                        <li><strong>Blog & News Hub</strong> - Success stories, program updates, and community engagement content</li>
-                        <li><strong>Comprehensive Contact System</strong> - Specialized forms including emergency child abuse reporting</li>
-                        <li><strong>Advanced SEO Optimization</strong> - Maximum online visibility and community reach</li>
-                        <li><strong>Mobile-First Responsive Design</strong> - Optimized for all devices and screen sizes</li>
-                        <li><strong>Accessibility Compliance</strong> - WCAG 2.1 AA compliant with screen reader support</li>
+                    <h3>🔹 Recruiter TL;DR (10-Second Scan)</h3>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Solo-developed, real-world NGO platform used by a live organisation</li>
+                        <li>Built responsive frontend, backend functionality, and secure integrations</li>
+                        <li>Implemented donations, volunteer management, and content features</li>
+                        <li>Focused on accessibility, performance, and trust for a public-facing system</li>
                     </ul>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Technical Implementation</h3>
-                    <p><strong>Frontend Architecture:</strong> ReactHTML5, CSS3, and JavaScript with mobile-first responsive design principles ensuring optimal user experience across all devices.</p>
-                    <p><strong>Payment Integration:</strong> Integrated PayFast, PayPal, and Stripe with PCI-compliant security protocols to enable secure, multi-currency donations.</p>
-                    <p><strong>Security:</strong> SSL encryption, CAPTCHA protection, and GDPR/POPIA compliance ensure user data protection and regulatory adherence.</p>
-                    <p><strong>Content Management:</strong> Easy-to-use CMS with role-based permissions allowing the organization to manage content without technical expertise.</p>
-                    <p><strong>Performance:</strong> Optimized images, lazy loading, and caching strategies ensure fast page load times and excellent user experience.</p>
+                    <h3>Project Overview</h3>
+                    <p style="color:#bdbdbd;">Sinothando (meaning “we have love” in isiZulu) is a comprehensive digital platform built for a child welfare organisation in Kimberley. The website serves as a central hub for donors, volunteers, staff, and community members to engage with child protection and welfare programs. The project demonstrates how thoughtful, accessible web development can support social impact organisations through technology.</p>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Technical Stack</h3>
+                    <h3>Challenge</h3>
+                    <p style="color:#bdbdbd;">The organisation needed to move from a basic informational website to a functional digital platform that could manage volunteer engagement, accept secure online donations, share impact stories and updates, build trust with donors and the community, and remain easy to manage by non-technical staff.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Solution</h3>
+                    <p style="color:#bdbdbd;">I designed and built a mobile-first, accessible, and secure web application that combines clean UI with practical backend functionality to support the organisation’s daily operations and outreach goals.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>🔹 Key Features (Built Independently)</h3>
+                    <h4 style="color:#9ae6a0; margin-top:8px;">🌐 Frontend &amp; User Experience</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Mobile-first, fully responsive design</li>
+                        <li>Dynamic landing page with impact counters and program highlights</li>
+                        <li>Accessible UI following WCAG 2.1 AA guidelines</li>
+                        <li>Optimised for performance across devices and screen sizes</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">🤝 Volunteer Management</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Online volunteer application forms</li>
+                        <li>Structured data capture to reduce manual processing</li>
+                        <li>Designed workflows aligned with NGO operational needs</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">💳 Secure Donation System</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Integrated PayFast, PayPal, and Stripe</li>
+                        <li>Supported one-time and recurring donations</li>
+                        <li>Implemented campaign-specific giving options</li>
+                        <li>Ensured secure, PCI-compliant payment handling</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">📰 Content &amp; Communication</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Blog and news section for success stories and updates</li>
+                        <li>Custom contact forms, including child abuse reporting workflows</li>
+                        <li>Role-based content management for non-technical staff</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">🔐 Security, Performance &amp; Compliance</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>SSL encryption and CAPTCHA protection</li>
+                        <li>POPIA and GDPR-aware data handling</li>
+                        <li>Image optimisation, lazy loading, and caching</li>
+                        <li>Google Analytics integration for usage insights</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>🛠 Technical Stack</h3>
                     <div class="tech-stack">
                         <span class="tech-badge">HTML5</span>
                         <span class="tech-badge">CSS3</span>
                         <span class="tech-badge">JavaScript</span>
-                        <span class="tech-badge">Responsive Design</span>
                         <span class="tech-badge">PayFast</span>
                         <span class="tech-badge">PayPal</span>
                         <span class="tech-badge">Stripe</span>
-                        <span class="tech-badge">Content Management</span>
                         <span class="tech-badge">SEO Optimization</span>
                         <span class="tech-badge">Google Analytics</span>
                         <span class="tech-badge">SSL Security</span>
@@ -1793,14 +1890,8 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
                 </div>
 
                 <div class="modal-section">
-                    <h3>Video Tour</h3>
-                    <div class="video-container">
-<iframe src="https://www.youtube.com/embed/-ndJsrSBvNs?si=0L5cXjg3arU6jfZK" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Project Gallery</h3>
+                    <h3>📸 Project Gallery</h3>
+                    <p style="color:#bdbdbd;">Landing page with impact counters, volunteer application interface, secure donation flow, blog and storytelling section, and mobile-responsive views.</p>
                     <div class="gallery">
                         <div class="gallery-item">
                             <img src="sino1.png" alt="Landing page with impact counters">
@@ -1821,21 +1912,15 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
                 </div>
 
                 <div class="modal-section">
-                    <h3>Strategic Impact Areas</h3>
-                    <p><strong>Community Engagement:</strong> The platform transformed how the organization communicates with stakeholders, making impact transparent and engaging through real-time statistics and compelling storytelling.</p>
-                    <p><strong>Resource Mobilization:</strong> By simplifying the donation and volunteer processes, the website significantly increased both financial contributions and volunteer hours available for programs.</p>
-                    <p><strong>Operational Efficiency:</strong> Automated systems reduced administrative burden, allowing staff to focus on core mission work rather than manual data entry and communication.</p>
-                    <p><strong>Trust Building:</strong> Professional design and transparent impact metrics establish credibility with donors and supporters, critical for a social impact organization.</p>
+                    <h3>Impact &amp; Results</h3>
+                    <p style="color:#bdbdbd;">Improved community engagement through storytelling and transparency, simplified donation and volunteer processes, reduced administrative workload for NGO staff, and increased trust through professional design and secure systems.</p>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Ongoing Maintenance & Support</h3>
-                    <p>Continuing to maintain and update the website with fresh content, security patches, and performance optimizations. Regular monitoring ensures optimal user experience, fast loading times, and adherence to the latest web standards and compliance requirements.</p>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Project Vision</h3>
-                    <p>Sinothando demonstrates how digital innovation can amplify social impact at scale. By creating an accessible, user-friendly platform, the organization has dramatically increased its ability to mobilize resources, engage volunteers, support survivors, and advance child welfare throughout the communities it serves.</p>
+                    <h3>Video Tour</h3>
+                    <div class="video-container">
+<iframe src="https://www.youtube.com/embed/-ndJsrSBvNs?si=0L5cXjg3arU6jfZK" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1845,35 +1930,91 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
     <div id="guyzintech-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>GuyzInTech Website</h2>
+                <h2>GuyzInTech</h2>
                 <button class="close-modal" onclick="closeModal('guyzintech-modal')">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="modal-section">
-                    <h3>Project Overview</h3>
-                    <p>GuyzInTech Website is a modern portfolio platform for a tech startup focused on tech education and mentorship. The website showcases the company's services, success stories, and team expertise.</p>
-                    <p>The platform was built with modern web standards, emphasizing performance, accessibility, and user experience to position the company as a leader in tech innovation.</p>
+                    <h3>Startup Portfolio Website for a Tech Education Company</h3>
+                    <p style="color:#bdbdbd;">🔹 My Role &amp; Ownership</p>
+                    <p style="color:#bdbdbd;"><strong>Role:</strong> Junior Frontend / Web Developer (Sole Developer)<br>
+                    <strong>Project Type:</strong> Real-world project for a tech startup</p>
+
+                    <p style="color:#bdbdbd;">I independently designed, developed, and deployed the GuyzInTech website to serve as the company’s public-facing portfolio and service showcase.</p>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Key Features</h3>
-                    <ul style="color: #bdbdbd; line-height: 1.8;">
-                        <li>💼 Professional company portfolio</li>
-                        <li>🎓 Service offerings and program descriptions</li>
-                        <li>👥 Team member profiles and expertise</li>
-                        <li>📚 Case studies and success stories</li>
-                        <li>📋 Project showcase gallery</li>
-                        <li>💬 Client testimonials section</li>
-                        <li>📧 Email inquiry system</li>
+                    <h3>🔹 Recruiter TL;DR (10-Second Scan)</h3>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Solo-built startup website using React and Tailwind CSS</li>
+                        <li>Focused on performance, accessibility, and responsive design</li>
+                        <li>Implemented structured content for services, case studies, and testimonials</li>
+                        <li>Delivered a polished, production-ready marketing site</li>
                     </ul>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Technical Stack</h3>
+                    <h3>Project Overview</h3>
+                    <p style="color:#bdbdbd;">The GuyzInTech website is a modern portfolio platform built for a tech startup focused on technology education and mentorship. The site presents the company’s services, programs, and expertise in a professional and accessible way, supporting brand credibility and client engagement.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Challenge</h3>
+                    <p style="color:#bdbdbd;">The startup needed a website that could clearly communicate its offerings and mission, present success stories and case studies, perform well on mobile and low-bandwidth connections, meet accessibility standards, and be easy to extend as the business grows.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Solution</h3>
+                    <p style="color:#bdbdbd;">I built a modern, responsive React application that balances clean design with strong usability, accessibility, and performance optimizations.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>🔹 Key Features (Built Independently)</h3>
+                    <h4 style="color:#9ae6a0; margin-top:8px;">💼 Company Portfolio &amp; Services</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Structured presentation of services and programs</li>
+                        <li>Clear information hierarchy for easy scanning</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">👥 Team &amp; Credibility</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Team member profiles highlighting expertise</li>
+                        <li>Client testimonials to build trust</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">📚 Case Studies &amp; Projects</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Project gallery showcasing completed work</li>
+                        <li>Success stories and outcomes</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">📧 Contact &amp; Inquiry System</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Email inquiry functionality</li>
+                        <li>Clear calls-to-action for prospective clients</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">🎨 UI/UX &amp; Accessibility</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Clean, modern design using Tailwind CSS</li>
+                        <li>WCAG 2.1 accessibility considerations</li>
+                        <li>Intuitive navigation and readable layouts</li>
+                    </ul>
+
+                    <h4 style="color:#9ae6a0; margin-top:8px;">⚡ Performance Optimization</h4>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Lazy loading of images and components</li>
+                        <li>Code splitting for faster initial load</li>
+                        <li>Optimized assets for mobile performance</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>🛠 Technical Stack</h3>
                     <div class="tech-stack">
                         <span class="tech-badge">React.js</span>
-                        <span class="tech-badge">Tailwind CSS</span>
                         <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">Tailwind CSS</span>
                         <span class="tech-badge">Responsive Design</span>
                         <span class="tech-badge">Performance Optimization</span>
                         <span class="tech-badge">Web Accessibility</span>
@@ -1881,14 +2022,8 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
                 </div>
 
                 <div class="modal-section">
-                    <h3>Video Tour</h3>
-                    <div class="video-container">
-<iframe src="https://www.youtube.com/embed/2n3Qz5xy1QM?si=vsNx6aME9siHqMn_" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-
-                <div class="modal-section">
-                    <h3>Project Gallery</h3>
+                    <h3>📸 Project Gallery</h3>
+                    <p style="color:#bdbdbd;">Homepage and service sections, case study and project gallery views, testimonials and contact interface, and mobile-responsive layouts.</p>
                     <div class="gallery">
                         <div class="gallery-item">
                             <img src="guyz1.png" alt="GuyzInTech Screenshot 1">
@@ -1909,14 +2044,12 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
                 </div>
 
                 <div class="modal-section">
-                    <h3>Design & UX Approach</h3>
-                    <p>The website emphasizes clean, modern design with bold colors and intuitive navigation. Special attention was paid to accessibility standards (WCAG 2.1) to ensure the site is usable by everyone.</p>
-                    <p>Performance optimization techniques including lazy loading, code splitting, and image optimization ensure fast load times even on mobile connections.</p>
+                    <h3>Video Tour</h3>
+                    <div class="video-container">
+<iframe src="https://www.youtube.com/embed/2n3Qz5xy1QM?si=vsNx6aME9siHqMn_" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
                 </div>
 
-                <div class="modal-section">
-                    <h3>Project Vision</h3>
-                    <p>The GuyzInTech website serves as a digital ambassador for the company's mission to empower individuals through technology education. By showcasing their expertise and success stories, the platform helps attract clients, partners, and talent to further their impact in the tech community.</p>
             </div>
         </div>
     </div>
@@ -2389,6 +2522,17 @@ I am a Junior Software Developer Graduate with a completed National Diploma in I
                 document.body.style.overflow = 'auto';
             }
         });
+
+        // Open modal and scroll to first video container inside it
+        function openModalAndScroll(modalId) {
+            openModal(modalId);
+            setTimeout(() => {
+                const modal = document.getElementById(modalId);
+                if (!modal) return;
+                const vc = modal.querySelector('.video-container');
+                if (vc) vc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 220);
+        }
 
         // Responsive Nav Toggle (Accessible)
         (function() {
