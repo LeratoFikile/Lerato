@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Commit and push portfolio update",
+			"type": "shell",
+			"command": "git status -sb && git add index.html && git commit -m \"Refresh portfolio design\" && git push",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}
