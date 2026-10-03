@@ -527,6 +527,12 @@
             filter: brightness(1.04);
         }
 
+        .project-image img:focus-visible,
+        .gallery-item img:focus-visible {
+            outline: 3px solid rgba(var(--accent-rgb), 0.9);
+            outline-offset: 3px;
+        }
+
         .certificates-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1041,6 +1047,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: zoom-in;
             transition: transform 0.3s ease;
         }
 
@@ -1474,14 +1481,15 @@ Advanced Diploma in ICT (Applications Development) student at Sol Plaatje Univer
                 <div class="skills-preview" aria-hidden="true">
                     <span class="skill-badge overview-badge">JavaScript</span>
                     <span class="skill-badge overview-badge">React</span>
+                    <span class="skill-badge overview-badge">Vite</span>
                     <span class="skill-badge overview-badge">Node.js</span>
                     <span class="skill-badge overview-badge">Java</span>
                     <span class="skill-badge overview-badge">Python</span>
-                    <span class="skill-badge overview-badge">Spring Boot</span>
-                    <span class="skill-badge overview-badge">MySQL</span>
-                    <span class="skill-badge overview-badge">Firebase</span>
+                    <span class="skill-badge overview-badge">SQL</span>
+                    <span class="skill-badge overview-badge">Firebase Firestore</span>
                     <span class="skill-badge overview-badge">Git</span>
                     <span class="skill-badge overview-badge">Docker</span>
+                    <span class="skill-badge overview-badge">Google Search Console</span>
                 </div>
 
                 <div class="cta-group">
@@ -1503,17 +1511,60 @@ Advanced Diploma in ICT (Applications Development) student at Sol Plaatje Univer
                 </div>
                 <h3>Sibahle Cosmetics</h3>
                 <p class="project-role">Role: Backend Developer</p>
-                <p>Delivered the backend foundation for the e-commerce website, including database connectivity, payment integration, SEO setup for Google discoverability, admin stock management, deployment, and domain management.</p>
+                <p>Delivered the backend foundation for the e-commerce website, including database connectivity, payment integration, SEO and Google Search Console setup, admin stock management, deployment, and domain management.</p>
                 <div class="project-tech">
                     <span class="tech-badge">JavaScript</span>
                     <span class="tech-badge">Node.js</span>
                     <span class="tech-badge">Express</span>
                     <span class="tech-badge">Python</span>
-                    <span class="tech-badge">SEO</span>
+                    <span class="tech-badge">SEO &amp; Google Search Console</span>
                 </div>
                 <div class="project-cta">
                     <a href="https://sibahlecosmetics.co.za/" class="project-link" target="_blank" rel="noopener noreferrer">View Project →</a>
                     <button class="read-more-btn" onclick="openModal('sibahle-modal')">Read More</button>
+                </div>
+            </div>
+
+            <!-- ACE & CRAFT Project -->
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="acelogo.png" alt="ACE &amp; CRAFT logo">
+                </div>
+                <h3>ACE &amp; CRAFT</h3>
+                <p class="project-role">Role: Sole Developer</p>
+                <p>Built a full-stack barbering and grooming platform with multi-service bookings, live appointment availability, and booking management for the business.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">React</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Firebase Firestore</span>
+                    <span class="tech-badge">React Router</span>
+                    <span class="tech-badge">Netlify</span>
+                </div>
+                <div class="project-cta">
+                    <a href="https://aceandcraft.netlify.app/" class="project-link" target="_blank" rel="noopener noreferrer">View Project →</a>
+                    <button class="read-more-btn" onclick="openModal('aceandcraft-modal')">Read More</button>
+                </div>
+            </div>
+
+            <!-- Jelvora Studio Project -->
+            <div class="leadership-card">
+                <div class="project-image">
+                    <img src="jelvoralogo.png" alt="Jelvora Studio logo">
+                </div>
+                <h3>Jelvora Studio</h3>
+                <p class="project-role">Role: Backend Developer &amp; Technical Implementation</p>
+                <p>Led backend development and production setup, including integrations, deployment, domain configuration, SEO, and search indexing.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">APIs</span>
+                    <span class="tech-badge">Git &amp; GitHub</span>
+                    <span class="tech-badge">Netlify</span>
+                    <span class="tech-badge">xneelo</span>
+                    <span class="tech-badge">SEO</span>
+                </div>
+                <div class="project-cta">
+                    <a href="https://jelvorastudio.co.za/" class="project-link" target="_blank" rel="noopener noreferrer">View Project →</a>
+                    <button class="read-more-btn" onclick="openModal('jelvora-modal')">Read More</button>
                 </div>
             </div>
 
@@ -1692,12 +1743,13 @@ Advanced Diploma in ICT (Applications Development) student at Sol Plaatje Univer
                         <span class="tech-badge">Netlify</span>
                         <span class="tech-badge">Xneelo</span>
                         <span class="tech-badge">Afrihost</span>
+                        <span class="tech-badge">SEO &amp; Google Search Console</span>
                     </div>
                 </div>
 
                 <div class="modal-section">
                     <h3>Key Contribution</h3>
-                    <p style="color:#bdbdbd;">My main contribution was the backend and production side of the application. I was responsible for making sure the website could communicate with its database, support its payment workflow, and operate correctly after deployment.</p>
+                    <p style="color:#bdbdbd;">My main contribution was the backend and production side of the application. I was responsible for making sure the website could communicate with its database, support its payment workflow, improve search visibility through SEO and Google Search Console, and operate correctly after deployment.</p>
                 </div>
 
                 <div class="modal-section">
@@ -1725,6 +1777,143 @@ Advanced Diploma in ICT (Applications Development) student at Sol Plaatje Univer
                         <div class="gallery-item">
                             <img src="sibahle5.png" alt="Sibahle Cosmetics Gallery 5">
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ACE & CRAFT Project -->
+    <div id="aceandcraft-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>ACE &amp; CRAFT</h2>
+                <button class="close-modal" onclick="closeModal('aceandcraft-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Project Type</h3>
+                    <p style="color:#bdbdbd;"><strong>Website:</strong> <a href="https://aceandcraft.netlify.app/" target="_blank" rel="noopener noreferrer" style="color:#6cb72c;">aceandcraft.netlify.app</a></p>
+                    <p style="color:#bdbdbd;"><strong>Role:</strong> Sole Developer</p>
+                    <p style="color:#bdbdbd;"><strong>Status:</strong> Live Project</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Project Overview</h3>
+                    <p style="color:#bdbdbd;">ACE &amp; CRAFT is a premium barbering and grooming platform that gives clients a polished online booking experience and provides the business with an internal appointment-management workflow. I designed and developed the application independently, from the booking experience and interface through backend data handling and deployment.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Client Booking System</h3>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Built a multi-step flow for selecting services, barbers, dates, and available appointment times.</li>
+                        <li>Supported multiple services and group bookings, collecting group size, age, gender, and customer details.</li>
+                        <li>Added flexible barber selection, including booking without a preferred barber.</li>
+                        <li>Implemented real-time appointment availability and time-slot validation with Firebase Firestore.</li>
+                        <li>Used Firestore transactions to protect bookings from conflicting submissions.</li>
+                        <li>Added custom-service requests for services not listed in the booking flow.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Booking Management &amp; Experience</h3>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Developed an admin area for viewing and managing booking requests and statuses.</li>
+                        <li>Added Google Calendar support and Apple Calendar event generation for appointments.</li>
+                        <li>Created dedicated About, Contact, and Terms &amp; Conditions pages.</li>
+                        <li>Designed responsive desktop and mobile layouts with booking validation and clear feedback.</li>
+                        <li>Configured and deployed the production application on Netlify.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Technology Stack</h3>
+                    <div class="tech-stack">
+                        <span class="tech-badge">React</span>
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">HTML5</span>
+                        <span class="tech-badge">CSS3</span>
+                        <span class="tech-badge">Firebase Firestore</span>
+                        <span class="tech-badge">React Router</span>
+                        <span class="tech-badge">Netlify</span>
+                        <span class="tech-badge">Google Calendar</span>
+                        <span class="tech-badge">Apple Calendar</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Video Tour</h3>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/QOx9Cychz_o" title="ACE &amp; CRAFT project video" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Project Gallery</h3>
+                    <div class="gallery">
+                        <div class="gallery-item"><img src="ace1.png" alt="ACE &amp; CRAFT website screenshot 1"></div>
+                        <div class="gallery-item"><img src="ace2.png" alt="ACE &amp; CRAFT website screenshot 2"></div>
+                        <div class="gallery-item"><img src="ace3.png" alt="ACE &amp; CRAFT website screenshot 3"></div>
+                        <div class="gallery-item"><img src="ace4.png" alt="ACE &amp; CRAFT website screenshot 4"></div>
+                        <div class="gallery-item"><img src="ace5.png" alt="ACE &amp; CRAFT website screenshot 5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Jelvora Studio Project -->
+    <div id="jelvora-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Jelvora Studio</h2>
+                <button class="close-modal" onclick="closeModal('jelvora-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Project Type</h3>
+                    <p style="color:#bdbdbd;"><strong>Website:</strong> <a href="https://jelvorastudio.co.za/" target="_blank" rel="noopener noreferrer" style="color:#6cb72c;">jelvorastudio.co.za</a></p>
+                    <p style="color:#bdbdbd;"><strong>Role:</strong> Backend Developer &amp; Technical Implementation</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Project Overview</h3>
+                    <p style="color:#bdbdbd;">I was responsible for backend development and the technical implementation of the Jelvora Studio website. My work focused on connecting the functionality behind the site, testing and troubleshooting the application, and preparing it for reliable production use.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Backend &amp; Technical Responsibilities</h3>
+                    <ul style="color:#bdbdbd; line-height:1.7;">
+                        <li>Developed backend functionality and handled application data and configuration.</li>
+                        <li>Integrated APIs and external services.</li>
+                        <li>Tested and troubleshot the application in preparation for production.</li>
+                        <li>Managed source control using Git and GitHub.</li>
+                        <li>Configured and deployed the website through Netlify.</li>
+                        <li>Set up the domain through xneelo.</li>
+                        <li>Configured SEO and Google search indexing to improve search visibility.</li>
+                        <li>Supported production deployment and ongoing technical maintenance.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Tools &amp; Technologies</h3>
+                    <div class="tech-stack">
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">APIs</span>
+                        <span class="tech-badge">Git</span>
+                        <span class="tech-badge">GitHub</span>
+                        <span class="tech-badge">VS Code</span>
+                        <span class="tech-badge">Netlify</span>
+                        <span class="tech-badge">xneelo</span>
+                        <span class="tech-badge">SEO</span>
+                        <span class="tech-badge">Google Search Console</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Video Tour</h3>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/G_uoLaiJBIA" title="Jelvora Studio project video" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
@@ -2587,13 +2776,25 @@ Advanced Diploma in ICT (Applications Development) student at Sol Plaatje Univer
         const projectImageModalCaption = document.getElementById('project-image-modal-caption');
         const closeProjectImageBtn = document.getElementById('close-project-image');
 
-        document.querySelectorAll('.project-image img').forEach(img => {
-            img.addEventListener('click', () => {
-                projectImageModalImg.src = img.src;
+        document.querySelectorAll('.project-image img, .gallery img').forEach(img => {
+            img.tabIndex = 0;
+            img.setAttribute('role', 'button');
+            img.setAttribute('aria-label', `View larger image: ${img.alt}`);
+
+            const openProjectImage = () => {
+                projectImageModalImg.src = img.currentSrc || img.src;
                 projectImageModalImg.alt = img.alt;
                 projectImageModalCaption.textContent = img.alt;
                 projectImageOverlay.classList.add('show');
                 projectImageOverlay.setAttribute('aria-hidden', 'false');
+            };
+
+            img.addEventListener('click', openProjectImage);
+            img.addEventListener('keydown', event => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openProjectImage();
+                }
             });
         });
 
@@ -2986,6 +3187,7 @@ Advanced Diploma in ICT (Applications Development) student at Sol Plaatje Univer
                                         <span class="skill-badge">JavaScript</span>
                                         <span class="skill-badge">Java</span>
                                         <span class="skill-badge">Python</span>
+                                        <span class="skill-badge">SQL</span>
                                     </div>
                                 </div>
 
@@ -2994,6 +3196,7 @@ Advanced Diploma in ICT (Applications Development) student at Sol Plaatje Univer
                                     <div class="skills-desc">Technologies for building user interfaces.</div>
                                     <div style="margin-top:12px;">
                                         <span class="skill-badge">React</span>
+                                        <span class="skill-badge">Vite</span>
                                         <span class="skill-badge">HTML5</span>
                                         <span class="skill-badge">CSS3</span>
                                         <span class="skill-badge">Responsive UI Design</span>
@@ -3018,7 +3221,7 @@ Advanced Diploma in ICT (Applications Development) student at Sol Plaatje Univer
                                     <div style="margin-top:12px;">
                                         <span class="skill-badge">MySQL</span>
                                         <span class="skill-badge">Microsoft SQL Server</span>
-                                        <span class="skill-badge">Firebase</span>
+                                        <span class="skill-badge">Firebase Firestore</span>
                                         <span class="skill-badge">MongoDB</span>
                                         <span class="skill-badge">Redis</span>
                                     </div>
@@ -3054,9 +3257,20 @@ Advanced Diploma in ICT (Applications Development) student at Sol Plaatje Univer
                                         <span class="skill-badge">Object-Oriented Programming (OOP)</span>
                                         <span class="skill-badge">MVC Architecture</span>
                                         <span class="skill-badge">Authentication</span>
+                                        <span class="skill-badge">API Integration</span>
                                         <span class="skill-badge">Debugging</span>
                                         <span class="skill-badge">SDLC</span>
                                         <span class="skill-badge">Data Structures &amp; Algorithms</span>
+                                    </div>
+                                </div>
+
+                                <div class="skills-category">
+                                    <h4>SEO &amp; Web</h4>
+                                    <div class="skills-desc">Search visibility and indexing.</div>
+                                    <div style="margin-top:12px;">
+                                        <span class="skill-badge">Search Engine Optimization (SEO)</span>
+                                        <span class="skill-badge">Google Search Console</span>
+                                        <span class="skill-badge">Search Engine Indexing</span>
                                     </div>
                                 </div>
                             </div>
